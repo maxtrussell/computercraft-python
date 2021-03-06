@@ -6,6 +6,5 @@ BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/m
 BOOTSTRAP_FILE = 'download_code.py'
 
 resp = requests.get(BASE_URL + '/' + BOOTSTRAP_FILE)
-f = fs.open(BOOTSTRAP_FILE, 'w')
-f.write(resp.text)
-f.close()
+with fs.open(BOOTSTRAP_FILE, 'w') as f:
+    f.write(resp.text)
