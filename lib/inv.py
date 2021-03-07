@@ -12,8 +12,8 @@ def select_by_name(name):
 
 # select the first item in inv from dictionary
 def select_from_dict(d):
-        d = {k.encode('utf-8'): v for k,v in d.items()}
-        for i in range(16):
+	d = {k.encode('utf-8'): v for k,v in d.items()}
+	for i in range(16):
 		item = turtle.getItemDetail(i + 1)
 		if item is not None and item[b'name'] in d:
 			turtle.select(i + 1)
