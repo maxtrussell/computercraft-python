@@ -1,6 +1,6 @@
 from enum import Enum
 from cc import import_file,turtle
-fuel = import_file('/lib/refuel.py')
+fuel = import_file('/lib/fuel.py')
 
 class DIRS(Enum):
 	UP='UP',
