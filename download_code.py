@@ -5,6 +5,7 @@ from cc import fs
 BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{}'
 FILES = [
     "/bin/quarry.py",
+    "/lib/inv.py"
 ]
 
 branch = 'master'
