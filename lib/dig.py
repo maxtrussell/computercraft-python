@@ -20,9 +20,9 @@ for k,v in fuel.FUEL.items():
 def quarry(width, depth, height, valuables=False, go_down=False):
         # get direction z
         if go_down:
-                move_z = turtle.down
+                move_z = nav.force_dir(nav.DIRS.DOWN)
         else:
-                move_z = turtle.up
+                move_z = nav.force_dir(nav.DIRS.UP)
                 # axis one direction changes
         directions = [turtle.turnLeft, turtle.turnRight]
         directionIndex = 1
