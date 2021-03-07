@@ -6,7 +6,7 @@ BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{
 FILES = [
 	"/bin/quarry.py",
 	"/lib/inv.py",
-	"/lib/refuel.py",
+	"/lib/fuel.py",
 	"/lib/nav.py",	
 ]
 
