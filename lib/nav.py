@@ -12,15 +12,15 @@ class OPS(Enum):
 	MOVE='MOVE'
 
 ACTIONS = {
-	'MOVE': {
-		'UP':turtle.up,
-		'DOWN':turtle.down,
-		'FORWARD':turtle.forward,
+	OPS.MOVE: {
+		DIRS.UP:turtle.up,
+		DIRS.DOWN:turtle.down,
+		DIRS.FORWARD:turtle.forward,
 	},
-	'DIG': {
-		'UP':turtle.digUp,
-		'DOWN':turtle.digDown,
-		'FORWARD':turtle.dig,
+	OPS.DIG: {
+		DIRS.UP:turtle.digUp,
+		DIRS.DOWN:turtle.digDown,
+		DIRS.FORWARD:turtle.dig,
 	}
 }
 
