@@ -32,7 +32,7 @@ def force_dir(dir, n=1):
 		while True:
 			# keep trying until success
 			# used to deal w/falling gravel etc.
-			fuel.refuel()
+			fuel.fuel()
 			if ACTIONS[OPS.MOVE][dir]():
 				break
 			ACTIONS[OPS.DIG][dir]()
