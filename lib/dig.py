@@ -19,11 +19,9 @@ for k,v in fuel.FUEL.items():
 # start bottom front left
 def quarry(width, depth, height, valuables=False, go_down=False):
         # get direction z
-        if go_down:
-                move_z = nav.force_dir(nav.DIRS.DOWN)
-        else:
-                move_z = nav.force_dir(nav.DIRS.UP)
-                # axis one direction changes
+        zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
+
+        # axis one direction changes
         directions = [turtle.turnLeft, turtle.turnRight]
         directionIndex = 1
         nav.force_dir(nav.DIRS.FORWARD)
@@ -51,7 +49,7 @@ def quarry(width, depth, height, valuables=False, go_down=False):
                 # reset in next level
                 if i != (height - 1):
                         manage_inv(VALUABLES)
-                        move_z()
+                        nav.force_dir(zdir)
                         turtle.left()
                         turtle.left()
 
