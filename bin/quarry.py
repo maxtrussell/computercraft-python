@@ -1,10 +1,8 @@
 from cc import import_file
-cwd = '/bin/'
-lib = '/lib/'
-turtle = import_file(lib + 'turtle_api.py')
+turtle = import_file('/lib/turtle_api.py')
 
-# start bottom fron left
-def quarry(width = 4, depth = 4, height = 4):
+# start bottom front left
+def quarry(width, depth, height):
         # axis one direction changes
         directions = [turtle.left, turtle.right]
         directionIndex = 1
@@ -31,7 +29,7 @@ def quarry(width = 4, depth = 4, height = 4):
                                 directionIndex = (directionIndex + 1) % 2
                 
                 # reset in next level
-                if i != (hieght - 1):
+                if i != (height - 1):
                         turtle.digDown()
                         turtle.down()
                         turtle.left()
