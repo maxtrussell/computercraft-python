@@ -3,12 +3,12 @@ from cc import import_file,turtle
 fuel = import_file('/lib/fuel.py')
 
 class DIRS(Enum):
-	UP='UP',
-	DOWN='DOWN',
+	UP='UP'
+	DOWN='DOWN'
 	FORWARD='FORWARD'
 
 class OPS(Enum):
-	DIG='DIG',
+	DIG='DIG'
 	MOVE='MOVE'
 
 ACTIONS = {
