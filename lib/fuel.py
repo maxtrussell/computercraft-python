@@ -10,7 +10,7 @@ FUEL = {
 
 # refuel a turtle if necessary
 # returns false if out of fuel
-def refuel(threshold=80):
+def fuel(threshold=80):
 	initial_slot = turtle.getSelectedSlot()
 	while turtle.getFuelLevel() < threshold:
 		# select fuel
