@@ -1,36 +1,13 @@
 from cc import import_file
-turtle = import_file('/lib/turtle_api.py')
 
-# start bottom front left
-def quarry(width, depth, height):
-        # axis one direction changes
-        directions = [turtle.left, turtle.right]
-        directionIndex = 1
-        turtle.forward()
-        for i in range(height):
-                for j in range(width):
-                        for k in range(depth - 1):
-                                turtle.dig()
-                                turtle.forward()
+dig = import_file('/lib/dig.py')
 
-                        # finished diggin one row
-                        # reposition to dig second row
-                        if j != (width - 1):
-                                # choose direction
-                                changeDirection = directions[directionIndex] 
+# Wrapper for dig
+if len(args) < 3:
+    print('Usage: quarry <width> <depth> <height> [valuables?] [down?]')
 
-                                # turn to next row
-                                changeDirection()
-                                turtle.dig()
-                                turtle.forward()
-                                changeDirection()
+width, depth, height = [int(x) for x in args[:3]]
+valuables = bool(args[3]) if len(args) > 3 else False
+go_down = bool(args[4]) if len(args) > 4 else False
 
-                                # change direction
-                                directionIndex = (directionIndex + 1) % 2
-                
-                # reset in next level
-                if i != (height - 1):
-                        turtle.digDown()
-                        turtle.down()
-                        turtle.left()
-                        turtle.left()
+dig.quarry(width, depth, height, valuables, go_down)
