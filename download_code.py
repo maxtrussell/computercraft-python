@@ -20,7 +20,7 @@ def get_file(filename):
         f.write(resp.text)
 
 for d in ['/lib', '/bin', '/scripts']:
-    if fs.exists(d):
+    if not fs.exists(d):
         fs.makeDir(d)
 
 for f in FILES:
