@@ -4,10 +4,11 @@ from cc import fs
 
 BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{}'
 FILES = [
-	"/lib/dig.py",
-	"/lib/fuel.py",
-	"/lib/inv.py",
-	"/lib/nav.py",	
+    "/bin/quarry.py",
+    "/lib/dig.py",
+    "/lib/fuel.py",
+    "/lib/inv.py",
+    "/lib/nav.py",	
 ]
 
 branch = 'master'
