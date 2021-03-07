@@ -1,4 +1,5 @@
-from cc import import_file
+from cc import import_file, turtle
+
 nav = import_file('/lib/nav.py')
 fuel = import_file('/lib/fuel.py')
 inv = import_file('/lib/inv.py')
@@ -12,7 +13,7 @@ VALUABLES = {
 }
 
 # add fuel source to VALUABLES
-for k,v in fuel.items():
+for k,v in fuel.FUEL.items():
         VALUABLES[k] = v
 
 # start bottom front left
@@ -23,9 +24,9 @@ def quarry(width, depth, height, valuables=False, go_down=False):
         else:
                 move_z = turtle.up
                 # axis one direction changes
-        directions = [turtle.left, turtle.right]
+        directions = [turtle.turnLeft, turtle.turnRight]
         directionIndex = 1
-        turtle.forward()
+        nav.force_dir(nav.DIRS.FORWARD)
         for i in range(height):
                 for j in range(width):
                         for k in range(depth - 1):

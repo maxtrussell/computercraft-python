@@ -6,7 +6,7 @@ dig = import_file('/lib/dig.py')
 if len(args) < 3:
     print('Usage: quarry <width> <depth> <height> [valuables?] [down?]')
 
-width, depth, height = args[:3]
+width, depth, height = [int(x) for x in args[:3]]
 valuables = bool(args[3]) if len(args) > 3 else False
 go_down = bool(args[4]) if len(args) > 4 else False
 
