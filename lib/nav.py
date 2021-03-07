@@ -5,19 +5,19 @@ fuel = import_file('/lib/refuel.py')
 class DIRS(Enum):
 	UP='UP',
 	DOWN='DOWN',
-	FORWARD='FORWARD',
+	FORWARD='FORWARD'
 
 class OPS(Enum):
 	DIG='DIG',
-	MOVE='MOVE',
+	MOVE='MOVE'
 
 ACTIONS = {
-	Operation.MOVE: {
+	'MOVE': {
 		'UP':turtle.up,
 		'DOWN':turtle.down,
 		'FORWARD':turtle.forward,
 	},
-	Operation.DIG: {
+	'DIG': {
 		'UP':turtle.digUp,
 		'DOWN':turtle.digDown,
 		'FORWARD':turtle.dig,
@@ -27,7 +27,7 @@ ACTIONS = {
 # destructively more n blocks
 def force_dir(dir, n=1):
 	for i in range(n):
-		ACTIONS[Operation.DIG][dir]()
+		ACTIONS[OPS.DIG][dir]()
 
 		while True:
 			# keep trying until success
