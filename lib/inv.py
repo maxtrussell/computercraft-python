@@ -1,6 +1,8 @@
 from cc import turtle
 # select a block with given name
 def select_by_name(name):
+	# item keys are byte strings
+	name = name.encode('utf-8')
 	for i in range(16):
 		item = turtle.getItemDetail(i + 1)
 		if item is not None and item[b'name'] == name:
@@ -9,10 +11,11 @@ def select_by_name(name):
 	return False
 
 # select the first item in inv from dictionary
-def select_from_dict(dict):
+def select_from_dict(d):
 	for i in range(16):
+		d = {k.encode('utf-8'): v for k,v in d.items()}
 		item = turtle.getItemDetail(i + 1)
-		if item is not None and item[b'name'] in dict:
+		if item is not None and item[b'name'] in d:
 			turtle.select(i + 1)
 			return True
 	return False
