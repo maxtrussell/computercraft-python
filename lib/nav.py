@@ -10,6 +10,11 @@ class DIRS(Enum):
 class OPS(Enum):
 	DIG='DIG'
 	MOVE='MOVE'
+        TURN='TURN'
+        
+class TURNS(Enum):
+        LEFT='LEFT'
+        RIGHT='RIGHT'
 
 ACTIONS = {
 	OPS.MOVE: {
@@ -22,9 +27,13 @@ ACTIONS = {
 		DIRS.DOWN:turtle.digDown,
 		DIRS.FORWARD:turtle.dig,
 	}
+        OPS.TURN: {
+                TURNS.LEFT:turtle.turnLeft,
+                TURNS.RIGHT:turtle.turnRight,
+        }
 }
 
-# destructively more n blocks
+# destructively move n blocks
 def force_dir(dir, n=1):
 	for i in range(n):
 		ACTIONS[OPS.DIG][dir]()
@@ -36,3 +45,15 @@ def force_dir(dir, n=1):
 			if ACTIONS[OPS.MOVE][dir]():
 				break
 			ACTIONS[OPS.DIG][dir]()
+
+# move n blocks
+def dir(dir, n=1):
+        for i in range(n):
+                fuel.fuel()
+                if not ACTIONS[OPS.MOVE][dir]():
+                        return False
+        return True
+
+# turn a by a given direction
+def turn(turn_dir):
+        ACTIONS[OPS.TURN][turn_dir]
