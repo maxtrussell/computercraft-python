@@ -31,6 +31,7 @@ def is_full():
 
 # drop all iteems from invenotry execpt those in provided table
 def drop_all_except(keep):
+	keep = {k.encode('utf-8'): v for k,v in keep.items()}
 	initial_slot = turtle.getSelectedSlot()
 	for i in range(16):
 		item = turtle.getItemDetail(i + 1)
