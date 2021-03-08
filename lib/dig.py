@@ -50,8 +50,8 @@ def quarry(width, depth, height, valuables=False, go_down=False):
                 if i != (height - 1):
                         manage_inv(VALUABLES)
                         nav.force_dir(zdir)
-                        turtle.left()
-                        turtle.left()
+                        turtle.turnLeft()
+                        turtle.turnLeft()
 
 # drops all non valuable items and condenses inventory when full
 def manage_inv(valuables):
