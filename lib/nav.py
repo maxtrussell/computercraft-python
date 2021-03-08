@@ -26,7 +26,7 @@ ACTIONS = {
 		DIRS.UP:turtle.digUp,
 		DIRS.DOWN:turtle.digDown,
 		DIRS.FORWARD:turtle.dig,
-	}
+	},
 	OPS.TURN: {
 		TURNS.LEFT:turtle.turnLeft,
 		TURNS.RIGHT:turtle.turnRight,
