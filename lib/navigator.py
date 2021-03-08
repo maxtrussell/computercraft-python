@@ -16,15 +16,15 @@ class CARDINALS(Enum):
 
 # maps a movement direction to an axis
 DIRS_TO_AXIS = {
-    nav.DIRS.UP:AXIS.Z
-    nav.DIRS.DOWN:AXIS.Z
+    nav.DIRS.UP:AXIS.Z,
+    nav.DIRS.DOWN:AXIS.Z,
     nav.DIRS.FORWARD: {
         # axis depends on the cardinal direction the turtle is currently facing
         CARDINALS.NORTH:AXIS.Y,
         CARDINALS.EAST:AXIS.X,
         CARDINALS.SOUTH:AXIS.Y,
         CARDINALS.WEST:AXIS.X,
-    }
+    },
 }
 
 # Maps current cardinal direction and a turn to a new cardinal direction
@@ -32,19 +32,19 @@ TURN_TO_DIR = {
         CARDINALS.NORTH: {
                 nav.TURNS.LEFT:CARDINALS.WEST,
                 nav.TURNS.RIGHT:CARDINALS.EAST,
-        }
+        },
         CARDINALS.EAST: {
                 nav.TURNS.LEFT:CARDINALS.NORTH,
                 nav.TURNS.RIGHT:CARDINALS.SOUTH,
-        }
+        },
         CARDINALS.SOUTH: {
                 nav.TURNS.LEFT:CARDINALS.EAST,
                 nav.TURNS.RIGHT:CARDINALS.WEST,
-        }
+        },
         CARDINALS.WEST: {
                 nav.TURNS.LEFT:CARDINALS.SOUTH,
                 nav.TURNS.RIGHT:CARDINALS.NORTH,
-        }
+        },
 }
 
 
