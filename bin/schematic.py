@@ -45,7 +45,12 @@ def build_slice(slice, block_defs):
         for j in range(len(slice[i])):
             if j != 0:
                 nav.force_dir(nav.DIRS.FORWARD)
-            symbol = slice[i][j]
+            if i % 2 == 0:
+                symbol = slice[i][j]
+            else:
+                # on the odd rows we're going backwards
+                symbol = slice[i][::-1][j]
+
             if symbol in block_defs:
                 inv.select_by_name(block_defs[symbol])
                 turtle.placeDown()
@@ -89,7 +94,7 @@ if '--analyze' in args:
     [[[count_col(col) for col in row if col != '.'] for row in slice] for slice in schematic]
 
     depth = max([len(s) for s in schematic])
-    width = max([len(r) for r in [s for s in schematic]])
+    width = max([max([len(r) for r in s]) for s in schematic])
     height = len(schematic)
     fuel = width*depth*height + height*(width+depth)
     print(f'Height: {height}')
