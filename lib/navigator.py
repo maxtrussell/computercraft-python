@@ -68,7 +68,7 @@ class Navigator:
     # move in the given movement direction
     def dir(self, dir, n=1):
         for i in range(n):
-            if not nav.dir(dir)
+            if not nav.dir(dir):
                 return False
             self.set_location(dir)
 

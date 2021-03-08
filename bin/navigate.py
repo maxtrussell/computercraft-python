@@ -9,7 +9,7 @@ nav = import_file('/lib/nav.py')
 
 turtle = navigator.Navigator()
 
-def test(msg = 'State:')
+def test(msg = 'State:'):
     print(msg)
     print('Location: ', turtle.location)
     print('Direction: ', turtle.direction)
