@@ -28,7 +28,7 @@ def quarry(width, depth, height, valuables=False, go_down=False):
         for i in range(height):
                 for j in range(width):
                         for k in range(depth - 1):
-                                manage_inv(VALUABLES)
+                                manage_inv(valuables)
                                 nav.force_dir(nav.DIRS.FORWARD)
 
                         # finished diggin one row
@@ -39,7 +39,7 @@ def quarry(width, depth, height, valuables=False, go_down=False):
 
                                 # turn to next row
                                 changeDirection()
-                                manage_inv(VALUABLES)
+                                manage_inv(valuables)
                                 nav.force_dir(nav.DIRS.FORWARD)
                                 changeDirection()
 
@@ -48,7 +48,7 @@ def quarry(width, depth, height, valuables=False, go_down=False):
                                 
                 # reset in next level
                 if i != (height - 1):
-                        manage_inv(VALUABLES)
+                        manage_inv(valuables)
                         nav.force_dir(zdir)
                         turtle.turnLeft()
                         turtle.turnLeft()
