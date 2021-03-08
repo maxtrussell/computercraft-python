@@ -73,7 +73,7 @@ class Navigator:
             self.set_location(dir)
 
     # turn RIGHT or LEFT
-    def turn(self turn_dir):
+    def turn(self, turn_dir):
         nav.turn(turn_dir)
         self.set_direction(turn_dir)
 
