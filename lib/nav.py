@@ -156,6 +156,13 @@ class Navigator:
 				return False
 			self.set_location(move_dir)
 		return True
+
+	# force move
+	def force_dir(self, move_dir, n=1):
+		for i in range(n):
+			force_dir(move_dir)
+			self.set_location(move_dir)
+
 	# turn RIGHT or LEFT
 	def turn(self, turn_dir):
 		turn(turn_dir)
@@ -169,3 +176,33 @@ class Navigator:
 			# change axis to be diffrent then desired axis
 			self.turn(TURNS.LEFT)
 		self.turn(TURNS.LEFT) if TURN_TO_DIR[self.direction][TURNS.LEFT] == cardinal else self.turn(TURNS.RIGHT)
+
+	def go_to(self, location):
+		# mov x
+		to_go = location[0] - self.location[0]
+		if to_go != 0:
+			direction = to_go/to_go
+			if direction == 1:
+				self.turn_to(CARDINALS.EAST)
+			else:
+				self.turn_to(CARDINALS.WEST)
+			self.force_dir(DIRS.FORWARD, to_go)
+		# move y
+		to_go = location[1] - self.location[1]
+		if to_go != 0:
+			direction = to_go/to_go
+			if direction == 1:
+				self.turn_to(CARDINALS.NORTH)
+			else:
+				self.turn_to(CARDINALS.SOUTH)
+			self.force_dir(DIRS.FORWARD, to_go)
+		# move z
+		to_go = location[2] - self.location[2]
+		if to_go != 0:
+			direction = to_go/to_go
+			if direction == 1:
+				self.force_dir(DIRS.UP, to_go)
+			else:
+				self.force_dir(DIRS.DOWN, to_go)
+
+		True if self.location == location else False
