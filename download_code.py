@@ -5,10 +5,15 @@ from cc import fs
 BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{}'
 FILES = [
     "/bin/quarry.py",
+    "/bin/schematic.py",
     "/lib/dig.py",
     "/lib/fuel.py",
     "/lib/inv.py",
     "/lib/nav.py",
+    "/schematics/house.txt",
+    "/schematics/wizard_tower_left.txt",
+    "/schematics/wizard_tower_right.txt",
+    "/schematics/wizard_tower_roof.txt",
 ]
 
 branch = 'master'
