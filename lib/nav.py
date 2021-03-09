@@ -61,7 +61,7 @@ DIRS_TO_AXIS = {
 TURN_TO_DIR = {
 	CARDINALS.NORTH: {
 		TURNS.LEFT:CARDINALS.WEST,
-		TURNS.RIGHT:CARDINAL.EAST,
+		TURNS.RIGHT:CARDINALS.EAST,
 	},
 	CARDINALS.EAST: {
 		TURNS.LEFT:CARDINALS.NORTH,
@@ -69,7 +69,7 @@ TURN_TO_DIR = {
 	},
 	CARDINALS.SOUTH: {
 		TURNS.LEFT:CARDINALS.EAST,
-		TURNS.RIGHT:CARDINAL.WEST,
+		TURNS.RIGHT:CARDINALS.WEST,
 	},
 	CARDINALS.WEST: {
 		TURNS.LEFT:CARDINALS.SOUTH,
@@ -138,11 +138,11 @@ class Navigator:
 		self.direction = TURN_TO_DIR[self.direction][turn_dir]
 
 	# move in the given direction
-	def dir(self, dir, n=1):
+	def dir(self, move_dir, n=1):
 		for i in range(n):
-			if not nav.dir(dir):
+			if not dir(move_dir):
 				return False
-			self.set_location(dir)
+			self.set_location(move_dir)
 
 	# turn RIGHT or LEFT
 	def turn(self, turn_dir):
