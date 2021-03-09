@@ -6,6 +6,7 @@ in_minecraft = 'args' in globals()
 if in_minecraft:
     from cc import fs, import_file, turtle
     nav = import_file('/lib/nav.py')
+    nav = nav.Navigator()
     inv = import_file('/lib/inv.py')
 
 def parse_schematic(path, open_func):
@@ -107,3 +108,5 @@ elif in_minecraft:
     # obviously you can only build from within minecraft
     for slice in schematic:
         build_slice(slice, block_defs)
+    nav.go_to([0,0,0])
+    nav.turn_to(nav.CARDINALS.NORTH)
