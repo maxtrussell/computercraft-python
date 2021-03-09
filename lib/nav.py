@@ -116,7 +116,7 @@ def dir(dir, n=1):
 
 # turn a by a given direction
 def turn(turn_dir):
-	ACTIONS[OPS.TURN][turn_dir]
+	ACTIONS[OPS.TURN][turn_dir]()
 
 class Navigator:
 	def __init__(self, location=[0,0,0], direction=CARDINALS.NORTH):
@@ -143,7 +143,7 @@ class Navigator:
 			if not dir(move_dir):
 				return False
 			self.set_location(move_dir)
-
+		return True
 	# turn RIGHT or LEFT
 	def turn(self, turn_dir):
 		turn(turn_dir)
