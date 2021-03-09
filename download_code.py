@@ -11,9 +11,7 @@ FILES = [
     "/lib/inv.py",
     "/lib/nav.py",
     "/schematics/house.txt",
-    "/schematics/wizard_tower_left.txt",
-    "/schematics/wizard_tower_right.txt",
-    "/schematics/wizard_tower_roof.txt",
+    "/schematics/farm.txt",
 ]
 
 branch = 'master'
