@@ -54,9 +54,9 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
                         navigator.force_dir(zdir)
                         navigator.turn(nav.TURNS.LEFT)
                         navigator.turn(nav.TURNS.LEFT)
-	if go_home:
-		navigator.go_to([0,0,0])
-		navigator.turn_to(nav.CARDINALS.NORTH)
+        if go_home:
+                navigator.go_to([0,0,0])
+                navigator.turn_to(nav.CARDINALS.NORTH)
 
 # drops all non valuable items and condenses inventory when full
 def manage_inv(valuables):
