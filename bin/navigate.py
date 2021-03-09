@@ -1,13 +1,12 @@
 from cc import import_file
 
-navigator = import_file('/lib/navigator.py')
 nav = import_file('/lib/nav.py')
 
 # test for navigator
 
 # ignore arguments
 
-turtle = navigator.Navigator()
+turtle = nav.Navigator()
 
 def test(msg = 'State:'):
     print(msg)
