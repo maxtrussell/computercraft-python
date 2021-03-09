@@ -127,7 +127,7 @@ class Navigator:
 	def set_location(self, dir):
 		if dir != DIRS.FORWARD:
 			axis = DIRS_TO_AXIS[dir]['AXIS']
-			direction = DIRS_TO_AXIS[dir]'DIRECTION']
+			direction = DIRS_TO_AXIS[dir]['DIRECTION']
 		else:
 			axis = DIRS_TO_AXIS[dir][self.direction]['AXIS']
 			direction = DIRS_TO_AXIS[dir][self.direction]['DIRECTION']
