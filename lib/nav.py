@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, IntEnum
 from cc import import_file,turtle
 fuel = import_file('/lib/fuel.py')
 
@@ -16,6 +16,66 @@ class TURNS(Enum):
 	LEFT='LEFT'
 	RIGHT='RIGHT'
 
+class AXIS(IntEnum):
+	X=1
+	Y=2
+	Z=3
+
+class CARDINALS(Enum):
+	NORTH='NORTH'
+	EAST='EAST'
+	SOUTH='SOUTH'
+	WEST='WEST'
+
+# maps a direction to an axis
+DIRS_TO_AXIS = {
+	DIRS.UP: {
+		'AXIS':AXIS.Z,
+		'DIRECTION':1,
+	},
+	DIRS.DOWN: {
+		'AXIS':AXIS.Z,
+		'DIRECTION':-1,
+	},
+	DIRS.FORWARD: {
+		CARDINALS.NORTH: {
+			'AXIS':AXIS.Y,
+			'DIRECTION':1,
+		},
+		CARDINALS.EAST: {
+			'AXIS':AXIS.X,
+			'DIRECTION':1,
+		},
+		CARDINALS.SOUTH: {
+			'AXIS':AXIS.Y,
+			'DIRECTION':-1,
+		},
+		CARDINALS.WEST: {
+			'AXIS':AXIS.X,
+			'DIRECTION':-1,
+		},
+	},
+}
+
+# maps cardinal direction and a turn to a resulting cardinal direction
+TURN_TO_DIR = {
+	CARDINALS.NORTH: {
+		TURNS.LEFT:CARDINALS.WEST,
+		TURNS.RIGHT:CARDINAL.EAST,
+	},
+	CARDINALS.EAST: {
+		TURNS.LEFT:CARDINALS.NORTH,
+		TURNS.RIGHT:CARDINALS.SOUTH,
+	},
+	CARDINALS.SOUTH: {
+		TURNS.LEFT:CARDINALS.EAST,
+		TURNS.RIGHT:CARDINAL.WEST,
+	},
+	CARDINALS.WEST: {
+		TURNS.LEFT:CARDINALS.SOUTH,
+		TURNS.RIGHT:CARDINALS.NORTH,
+	},
+}
 ACTIONS = {
 	OPS.MOVE: {
 		DIRS.UP:turtle.up,
@@ -30,7 +90,7 @@ ACTIONS = {
 	OPS.TURN: {
 		TURNS.LEFT:turtle.turnLeft,
 		TURNS.RIGHT:turtle.turnRight,
-	}
+	},
 }
 
 # destructively move n blocks
@@ -57,3 +117,43 @@ def dir(dir, n=1):
 # turn a by a given direction
 def turn(turn_dir):
 	ACTIONS[OPS.TURN][turn_dir]
+
+class Navigator:
+	def __init__(self, location=[0,0,0], direction=CARDINALS.NORTH):
+		self.location=location
+		self.direction=direction
+
+	# change location depending on given direction
+	def set_location(self, dir):
+		if dir != DIRS.FORWARD:
+			axis = DIRS_TO_AXIS[dir]['AXIS']
+			direction = DIRS_TO_AXIS[dir]'DIRECTION']
+		else:
+			axis = DIRS_TO_AXIS[dir][self.direction]['AXIS']
+			direction = DIRS_TO_AXIS[dir][self.direction]['DIRECTION']
+		self.location[axis]+=direction
+
+	# change direction given a turn direction
+	def set_direction(self, turn_dir):
+		self.direction = TURN_TO_DIR[self.direction][turn_dir]
+
+	# move in the given direction
+	def dir(self, dir, n=1):
+		for i in range(n):
+			if not nav.dir(dir):
+				return False
+			self.set_location(dir)
+
+	# turn RIGHT or LEFT
+	def turn(self, turn_dir):
+		turn(turn_dir)
+		self.set_direction(turn_dir)
+
+	# turn to cardinal
+	def turn_to(self, cardinal):
+		if self.direction == cardinal:
+			return
+		elif DIRS_TO_AXIS[DIRS.FORWARD][self.direction]['AXIS'] == DIRS_TO_AXIS[DIRS.FORWARD][cardinal]['AXIS']:
+			# change axis to be diffrent then desired axis
+			self.turn(TURNS.LEFT)
+		self.turn(TURNS.LEFT) if TURN_TO_DIR[self.direction][TURNS.LEFT] == cardinal else self.turn(TURNS.RIGHT)
