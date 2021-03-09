@@ -42,3 +42,5 @@ test('Expected State: [0,6,0], EAST')
 
 turtle.dir(nav.DIRS.FORWARD, 5)
 test('Expected State: [5,6,0], EAST')
+
+print(turtle.go_to([0,0,0]))
