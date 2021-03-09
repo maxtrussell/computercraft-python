@@ -180,29 +180,27 @@ class Navigator:
 	def go_to(self, location):
 		# mov x
 		to_go = location[0] - self.location[0]
-		if to_go != 0:
-			direction = to_go/to_go
-			if direction == 1:
-				self.turn_to(CARDINALS.EAST)
-			else:
-				self.turn_to(CARDINALS.WEST)
+		if to_go > 0:
+			self.turn_to(CARDINALS.EAST)
 			self.force_dir(DIRS.FORWARD, to_go)
-		# move y
+		elif to_go < 0:
+			self.turn_to(CARDINALS.WEST)
+			self.force_dir(DIRS.FORWARD, to_go * -1)
+
+		# mov y
 		to_go = location[1] - self.location[1]
-		if to_go != 0:
-			direction = to_go/to_go
-			if direction == 1:
-				self.turn_to(CARDINALS.NORTH)
-			else:
-				self.turn_to(CARDINALS.SOUTH)
+		if to_go > 0:
+			self.turn_to(CARDINALS.NORTH)
 			self.force_dir(DIRS.FORWARD, to_go)
+		elif to_go < 0:
+			self.turn_to(CARDINALS.SOUTH)
+			self.force_dir(DIRS.FORWARD, to_go * -1)
+
 		# move z
 		to_go = location[2] - self.location[2]
-		if to_go != 0:
-			direction = to_go/to_go
-			if direction == 1:
-				self.force_dir(DIRS.UP, to_go)
-			else:
-				self.force_dir(DIRS.DOWN, to_go)
+		if to_go > 0:
+			self.force_dir(DIRS.UP, to_go)
+		elif to_go < 0:
+			self.force_dir(DIRS.DOWN, to_go * -1)
 
-		True if self.location == location else False
+		return True if self.location == location else False
