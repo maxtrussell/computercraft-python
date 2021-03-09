@@ -6,7 +6,7 @@ in_minecraft = 'args' in globals()
 if in_minecraft:
     from cc import fs, import_file, turtle
     nav = import_file('/lib/nav.py')
-    nav = nav.Navigator()
+    navigator = nav.Navigator()
     inv = import_file('/lib/inv.py')
 
 def parse_schematic(path, open_func):
@@ -40,12 +40,13 @@ def parse_schematic(path, open_func):
 
 def build_slice(slice, block_defs):
     selected = 0
-    turn_dir = turtle.turnRight
+    turn_dir = nav.TURNS.RIGHT
+    turn = navigator.turn
 
     for i in range(len(slice)):
         for j in range(len(slice[i])):
             if j != 0:
-                nav.force_dir(nav.DIRS.FORWARD)
+                navigator.force_dir(nav.DIRS.FORWARD)
             if i % 2 == 0:
                 symbol = slice[i][j]
             else:
@@ -58,27 +59,27 @@ def build_slice(slice, block_defs):
 
         if i != len(slice)-1:
             # turn to next row
-            turn_dir()
-            nav.force_dir(nav.DIRS.FORWARD)
-            turn_dir()
+            turn(turn_dir)
+            navigator.force_dir(nav.DIRS.FORWARD)
+            turn(turn_dir)
 
             # flip the turn direction
-            turn_dir = turtle.turnRight if turn_dir is turtle.turnLeft else turtle.turnLeft
+            turn_dir = nav.TURNS.RIGHT if turn_dir is nav.TURNS.LEFT else nav.TURNS.LEFT
 
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
     if len(slice) % 2 == 0:
-        turtle.turnRight()
-        nav.force_dir(nav.DIRS.FORWARD, len(slice)-1)
-        turtle.turnRight()
+        navigator.turn(nav.TURNS.LEFT)
+        navigator.force_dir(nav.DIRS.FORWARD, len(slice)-1)
+        navigator.turn(nav.TURNS.RIGHT)
     else:
-        turtle.turnLeft()
-        nav.force_dir(nav.DIRS.FORWARD, len(slice)-1)
+        navigator.turn(nav.TURNS.LEFT)
+        navigator.force_dir(nav.DIRS.FORWARD, len(slice)-1)
 
-        turtle.turnLeft()
-        nav.force_dir(nav.DIRS.FORWARD, len(slice[-1])-1)
-        turtle.turnLeft()
-        turtle.turnLeft()
+        navigator.turn(nav.TURNS.LEFT)
+        navigator.force_dir(nav.DIRS.FORWARD, len(slice[-1])-1)
+        navigator.turn(nav.TURNS.LEFT)
+        navigator.turn(nav.TURNS.LEFT)
 
 
 # make args global accessible from within or outside of MC
@@ -108,5 +109,5 @@ elif in_minecraft:
     # obviously you can only build from within minecraft
     for slice in schematic:
         build_slice(slice, block_defs)
-    nav.go_to([0,0,0])
-    nav.turn_to(nav.CARDINALS.NORTH)
+    navigator.go_to([0,0,0])
+    navigator.turn_to(nav.CARDINALS.NORTH)
