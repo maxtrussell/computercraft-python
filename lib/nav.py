@@ -17,9 +17,9 @@ class TURNS(Enum):
 	RIGHT='RIGHT'
 
 class AXIS(IntEnum):
-	X=1
-	Y=2
-	Z=3
+	X=0
+	Y=1
+	Z=2
 
 class CARDINALS(Enum):
 	NORTH='NORTH'
