@@ -28,16 +28,16 @@ test('Expected State: [0,1,0], NORTH')
 turtle.turn(nav.TURNS.LEFT)
 test('Expected State: [0,1,0], WEST')
 
-turtle.turn_to(navigator.CARDINALS.SOUTH)
+turtle.turn_to(nav.CARDINALS.SOUTH)
 test('Expected State: [0,1,0], SOUTH')
 
-turtle.turn_to(navigator.CARDINALS.NORTH)
+turtle.turn_to(nav.CARDINALS.NORTH)
 test('Expected State: [0,1,0], NORTH')
 
 turtle.dir(nav.DIRS.FORWARD, 5)
 test('Expected State: [0,6,0], NORTH')
 
-turtle.turn_to(navigator.CARDINALS.EAST)
+turtle.turn_to(nav.CARDINALS.EAST)
 test('Expected State: [0,6,0], EAST')
 
 turtle.dir(nav.DIRS.FORWARD, 5)
