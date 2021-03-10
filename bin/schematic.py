@@ -1,7 +1,6 @@
 from collections import defaultdict
 import math
 import sys
-from cc 
 
 in_minecraft = 'args' in globals()
 if in_minecraft:
