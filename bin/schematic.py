@@ -58,10 +58,10 @@ def build_slice(slice, block_defs):
     
     for i in range(len(slice)):
         place()
-        navigator.force_dir(nav.DIRS.FORWARD, len(slice[i]) - 1, place())
+        navigator.force_dir(nav.DIRS.FORWARD, len(slice[i]) - 1, place)
 
         if i != len(slice)-1:
-            go_to(navigator.location[0] + 1, navigator.location[1], navigator.location[2])
+            navigator.go_to(navigator.location[0] + 1, navigator.location[1], navigator.location[2])
 
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
