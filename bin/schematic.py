@@ -46,6 +46,8 @@ def build_slice(slice, block_defs):
     def place(args):
         slice = args[0]
         block_defs = args[1]
+	print(slice)
+	print(block_defs)
         y = navigator.location[0]
         x = navigator.location[1]
 
@@ -64,6 +66,7 @@ def build_slice(slice, block_defs):
 
         if i != len(slice)-1:
             navigator.go_to([navigator.location[0] - 1, navigator.location[1], navigator.location[2]])
+	    navigator.turn(nav.TURNS.LEFT) if navigator.location[0] % 2 else navigator.turn(nav.TURNS.RIGHT)
 
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
