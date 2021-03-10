@@ -38,7 +38,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
 
                                 # turn to next row
                                 navigator.turn(direction)
-                                manage_inv(valuables)
+                                manage_inv([valuables])
                                 navigator.force_dir(nav.DIRS.FORWARD)
                                 navigator.turn(direction)
 
@@ -47,7 +47,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
                                 
                 # reset in next level
                 if i != (height - 1):
-                        manage_inv(valuables)
+                        manage_inv([valuables])
                         navigator.force_dir(zdir)
                         navigator.turn(nav.TURNS.LEFT)
                         navigator.turn(nav.TURNS.LEFT)
