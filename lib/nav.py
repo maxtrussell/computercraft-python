@@ -122,7 +122,18 @@ class Navigator:
 	def __init__(self, location=[0,0,0], direction=CARDINALS.NORTH):
 		self.location=location
 		self.direction=direction
-
+	# getters
+	def get_location(self):
+		return self.location.copy()
+	def get_direction(self):
+		if direction == CARDINALS.NORTH:
+			return CARDINALS.NORTH
+		elif direction == CARDINALS.EAST:
+			return CARDINALS.EAST
+		elif direction == CARDINALS.WEST:
+			return CARDINALS.WEST
+		else:
+			return CARDINALS.SOUTH
 	# change location depending on given direction
 	def set_location(self, dir):
 		if dir != DIRS.FORWARD:
