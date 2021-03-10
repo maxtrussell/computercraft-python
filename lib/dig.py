@@ -18,7 +18,7 @@ for k,v in fuel.FUEL.items():
 
 # start bottom front left
 # do is list of a function and its arguments to execute after every movement
-def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, do=None):
+def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, chest=None, do=None):
         navigator = nav.Navigator()
         initial_location = navigator.get_location()
         initial_direction = navigator.get_direction()
@@ -26,7 +26,8 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
         # pack do
-        do = [do_wrapper, [[manage_inv, valuables][do[0],d[1]]]] if do else [do_wrapper, [[manage_inv, valuables]]]
+	quarry_dos = [manage_inv, VALUABLES, chest]
+        do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
 
         # axis one direction changes
         directions = [nav.TURNS.LEFT, nav.TURNS.RIGHT]
@@ -59,29 +60,36 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
                 navigator.turn_to(initial_direction)
 
 # drops all non valuable items and condenses inventory when full
-def manage_inv(valuables):
+def manage_inv(valuables, chest):
         if valuables and inv.is_full():
                 inv.drop_all_except(VALUABLES)
                 inv.restack()
 
-def return_to_chest(chest_coordinates, chest_direction):
-	current_location = navigator.get_location()
-	current_direction = navigator.get_direction()
+	if chest and inv.is_full():
+		current_location = navigator.get_location()
+		current_direction = navigator.get_direction()
 
-	navigator.go_to(chest_coordinates)
-	navigator.turn_to(chest_direction)
+		chest_location = chest[0]
+		chest_direction = chest[1]
 
-	# deposit valuables
-	for valuable in VALUABLES:
-                inv.deposit_block(valuable)
+		# return to chest
+		navigator.go_to(chest_coordinates)
+		navigator.turn_to(chest_direction)
+		# deposit all
+		for i in range(16):
+			turtle.select(i + 1)
+			turtle.drop()
 
-	navigator.go_to(current_location)
-	navigator.turn_to(current_direction)
+		# go back
+		navigator.go_to(current_location)
+		navigator.turn_to(current_direction)
+
 
 def do_wrapper(args):
         manage_inv = args[0][0]
         valuables = args[0][1]
-        manage_inv(valuables)
+	chest = args[0][2]
+        manage_inv(valuables, chest)
 
         if len(args) > 1:
                 do = args[1][0]
