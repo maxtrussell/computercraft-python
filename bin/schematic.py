@@ -6,7 +6,6 @@ in_minecraft = 'args' in globals()
 if in_minecraft:
     from cc import fs, import_file, turtle
     nav = import_file('/lib/nav.py')
-    navigator = nav.Navigator()
     inv = import_file('/lib/inv.py')
 
 def parse_schematic(path, open_func):
@@ -41,6 +40,7 @@ def parse_schematic(path, open_func):
 def build_slice(slice, block_defs):
     selected = 0
     turn_dir = nav.TURNS.RIGHT
+    navigator = nav.Navigator()
     turn = navigator.turn
     initial_location = navigator.location
     initial_direction = navigator.direction
@@ -68,6 +68,7 @@ def build_slice(slice, block_defs):
         if i != len(slice)-1:
             navigator.go_to([navigator.location[0] - 1, navigator.location[1], navigator.location[2]])
             navigator.turn(nav.TURNS.LEFT) if navigator.location[0] % 2 else navigator.turn(nav.TURNS.RIGHT)
+    place([slice, block_defs])
     navigator.force_dir(nav.DIRS.UP)
     navigator.go_to(initial_location)
     navigator.turn_to(initial_direction)
