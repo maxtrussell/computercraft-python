@@ -52,7 +52,7 @@ def build_slice(slice, block_defs):
         if y % 2 == 0:
             symbol = slice[y][x]
         else:
-            symbol = slice[y][::-1][j]
+            symbol = slice[y][::-1][x]
 
         if symbol in block_defs:
             inv.select_by_name(block_defs[symbol])
