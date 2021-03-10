@@ -1,6 +1,7 @@
 from collections import defaultdict
 import math
 import sys
+from cc 
 
 in_minecraft = 'args' in globals()
 if in_minecraft:
@@ -57,7 +58,7 @@ def build_slice(slice, block_defs):
         print(block_defs)
         if symbol in block_defs:
             inv.select_by_name(block_defs[symbol])
-            turtle.placeDown
+            turtle.placeDown()
     
     for i in range(len(slice)):
         place([slice, block_defs])
