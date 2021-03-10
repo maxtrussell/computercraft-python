@@ -38,7 +38,7 @@ def parse_schematic(path, open_func):
                 curr_slice.append(list(line.strip()))
     return schematic, block_defs
 
-def build_slice():
+def build_slice(slice, block_defs):
     selected = 0
     turn_dir = nav.TURNS.RIGHT
     turn = navigator.turn
