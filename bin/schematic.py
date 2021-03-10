@@ -72,7 +72,7 @@ def build_slice(slice, block_defs):
     # reset for the next level
     navigator.force_dir(nav.DIRS.UP)
     navigator.go_to(initial_location)
-    navigator.turn_to(initial_location)
+    navigator.turn_to(initial_direction)
 
 
 # make args global accessible from within or outside of MC
