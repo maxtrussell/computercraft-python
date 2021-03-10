@@ -54,7 +54,7 @@ def build_slice(slice, block_defs):
         else:
             symbol = slice[y][::-1][x]
 
-	print(symbol)
+        print(symbol)
         if symbol in block_defs:
             inv.select_by_name(block_defs[symbol])
             turtle.placeDown
@@ -65,7 +65,7 @@ def build_slice(slice, block_defs):
 
         if i != len(slice)-1:
             navigator.go_to([navigator.location[0] - 1, navigator.location[1], navigator.location[2]])
-	    navigator.turn(nav.TURNS.LEFT) if navigator.location[0] % 2 else navigator.turn(nav.TURNS.RIGHT)
+            navigator.turn(nav.TURNS.LEFT) if navigator.location[0] % 2 else navigator.turn(nav.TURNS.RIGHT)
 
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
