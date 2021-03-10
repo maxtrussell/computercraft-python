@@ -126,6 +126,7 @@ class Navigator:
 	def get_location(self):
 		return self.location.copy()
 	def get_direction(self):
+		direction = self.direction
 		if direction == CARDINALS.NORTH:
 			return CARDINALS.NORTH
 		elif direction == CARDINALS.EAST:
