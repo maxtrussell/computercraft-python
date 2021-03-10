@@ -64,6 +64,20 @@ def manage_inv(valuables):
                 inv.drop_all_except(VALUABLES)
                 inv.restack()
 
+def return_to_chest(chest_coordinates, chest_direction):
+	current_location = navigator.get_location()
+	current_direction = navigator.get_direction()
+
+	navigator.go_to(chest_coordinates)
+	navigator.turn_to(chest_direction)
+
+	# deposit valuables
+	for valuable in VALUABLES:
+                inv.deposit_block(valuable)
+
+	navigator.go_to(current_location)
+	navigator.turn_to(current_direction)
+
 def do_wrapper(args):
         manage_inv = args[0][0]
         valuables = args[0][1]
