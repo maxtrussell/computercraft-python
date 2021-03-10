@@ -42,6 +42,8 @@ def build_slice(slice, block_defs):
     selected = 0
     turn_dir = nav.TURNS.RIGHT
     turn = navigator.turn
+    initial_location = navigator.location
+    initial_direction = navigator.direction
 
     def place(args):
         slice = args[0]
@@ -68,19 +70,9 @@ def build_slice(slice, block_defs):
             navigator.turn(nav.TURNS.LEFT) if navigator.location[0] % 2 else navigator.turn(nav.TURNS.RIGHT)
 
     # reset for the next level
-    nav.force_dir(nav.DIRS.UP)
-    if len(slice) % 2 == 0:
-        navigator.turn(nav.TURNS.RIGHT)
-        navigator.force_dir(nav.DIRS.FORWARD, len(slice)-1)
-        navigator.turn(nav.TURNS.RIGHT)
-    else:
-        navigator.turn(nav.TURNS.LEFT)
-        navigator.force_dir(nav.DIRS.FORWARD, len(slice)-1)
-
-        navigator.turn(nav.TURNS.LEFT)
-        navigator.force_dir(nav.DIRS.FORWARD, len(slice[-1])-1)
-        navigator.turn(nav.TURNS.LEFT)
-        navigator.turn(nav.TURNS.LEFT)
+    navigator.force_dir(nav.DIRS.UP)
+    navigator.go_to(initial_location)
+    navigator.turn_to(initial_location)
 
 
 # make args global accessible from within or outside of MC
