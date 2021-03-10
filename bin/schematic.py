@@ -54,7 +54,7 @@ def build_slice(slice, block_defs):
         else:
             symbol = slice[y][::-1][x]
 
-        print(symbol)
+        print(block_defs)
         if symbol in block_defs:
             inv.select_by_name(block_defs[symbol])
             turtle.placeDown
