@@ -38,33 +38,30 @@ def parse_schematic(path, open_func):
                 curr_slice.append(list(line.strip()))
     return schematic, block_defs
 
-def build_slice(slice, block_defs):
+def build_slice():
     selected = 0
     turn_dir = nav.TURNS.RIGHT
     turn = navigator.turn
 
-    for i in range(len(slice)):
-        for j in range(len(slice[i])):
-            if j != 0:
-                navigator.force_dir(nav.DIRS.FORWARD)
-            if i % 2 == 0:
-                symbol = slice[i][j]
-            else:
-                # on the odd rows we're going backwards
-                symbol = slice[i][::-1][j]
+    def place():
+	y = navigator.location[0]
+	x = navigator.location[1]
 
-            if symbol in block_defs:
-                inv.select_by_name(block_defs[symbol])
-                turtle.placeDown()
+	if y % 2 == 0:
+	    symbol = slice[y][x]
+	else:
+	    symbol = slice[y][::-1][j]
+
+	if symbol in block_defs:
+	    inv.select_by_name(block_defs[symbol])
+	    turtle.placeDown
+    
+    for i in range(len(slice)):
+	place()
+	navigator.force_dir(nav.DIRS.FORWARD, len(slice[i]-1), place())
 
         if i != len(slice)-1:
-            # turn to next row
-            turn(turn_dir)
-            navigator.force_dir(nav.DIRS.FORWARD)
-            turn(turn_dir)
-
-            # flip the turn direction
-            turn_dir = nav.TURNS.RIGHT if turn_dir is nav.TURNS.LEFT else nav.TURNS.LEFT
+	    go_to(navigator.location[0] + 1, navigator.location[1], navigator.location[2])
 
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
