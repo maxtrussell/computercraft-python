@@ -42,8 +42,8 @@ def build_slice(slice, block_defs):
     turn_dir = nav.TURNS.RIGHT
     navigator = nav.Navigator()
     turn = navigator.turn
-    initial_location = navigator.location
-    initial_direction = navigator.direction
+    initial_location = navigator.get_location()
+    initial_direction = navigator.get_direction()
 
     def place(args):
         slice = args[0]
