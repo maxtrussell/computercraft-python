@@ -160,8 +160,8 @@ class Navigator:
 	# force move
 	def force_dir(self, move_dir, n=1, to_do=None):
 		for i in range(n):
-			if to_do:
-				to_do()
+			if to_do[0]:
+				to_do[0](to_do[1])
 			force_dir(move_dir)
 			self.set_location(move_dir)
 

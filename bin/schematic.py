@@ -59,7 +59,7 @@ def build_slice(slice, block_defs):
             turtle.placeDown
     
     for i in range(len(slice)):
-        place()
+        place([slice, block_defs])
         navigator.force_dir(nav.DIRS.FORWARD, len(slice[i]) - 1, [place, [slice, block_defs]])
 
         if i != len(slice)-1:
