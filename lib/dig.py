@@ -48,7 +48,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
                                 # change direction
                                 direction_index = (direction_index + 1) % 2
                                 
-j                # reset in next level
+                # reset in next level
                 if i != (height - 1):
                         manage_inv([valuables])
                         navigator.force_dir(zdir, 1, do)
