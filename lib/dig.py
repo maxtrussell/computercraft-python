@@ -25,10 +25,10 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         # get direction z
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
-	# pack do
-	do = [do_wrapper, [[manage_inv, valuables][do[0],d[1]]]] if do else [do_wrapper, [[manage_inv, valuables]]]
+        # pack do
+        do = [do_wrapper, [[manage_inv, valuables][do[0],d[1]]]] if do else [do_wrapper, [[manage_inv, valuables]]]
 
-	# axis one direction changes
+        # axis one direction changes
         directions = [nav.TURNS.LEFT, nav.TURNS.RIGHT]
         direction_index = 1
         navigator.force_dir(nav.DIRS.FORWARD)
@@ -48,7 +48,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
                                 # change direction
                                 direction_index = (direction_index + 1) % 2
                                 
-                # reset in next level
+j                # reset in next level
                 if i != (height - 1):
                         manage_inv([valuables])
                         navigator.force_dir(zdir, 1, do)
@@ -65,12 +65,12 @@ def manage_inv(valuables):
                 inv.restack()
 
 def do_wrapper(args):
-	manage_inv = args[0][0]
-	valuables = args[0][1]
-	manage_inv(valuables)
+        manage_inv = args[0][0]
+        valuables = args[0][1]
+        manage_inv(valuables)
 
-	if len(args) > 1:
-		do = args[1][0]
-		do_args = args[1][1]
-		do(do_args)
+        if len(args) > 1:
+                do = args[1][0]
+                do_args = args[1][1]
+                do(do_args)
 
