@@ -12,14 +12,15 @@ VALUABLES = {
         'minecraft:lapis_lazuli':True,
 }
 
-navigator = nav.Navigator()
-
 # add fuel source to VALUABLES
 for k,v in fuel.FUEL.items():
         VALUABLES[k] = v
 
 # start bottom front left
 def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
+        navigator = nav.Navigator()
+        initial_location = navigator.get_location()
+        initial_direction = navigator.get_direction()
         # get direction z
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
@@ -29,11 +30,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
         navigator.force_dir(nav.DIRS.FORWARD)
         for i in range(height):
                 for j in range(width):
-                        for k in range(depth - 1):
-                                manage_inv(valuables)
-                                navigator.force_dir(nav.DIRS.FORWARD)
-
-                        # finished diggin one row
+                        navigator.force_dir(nav.DIRS.FORWARD, depth - 1, [manage_inv, [valuables]])
                         # reposition to dig second row
                         if j != (width - 1):
                                 # choose direction
@@ -55,11 +52,12 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False):
                         navigator.turn(nav.TURNS.LEFT)
                         navigator.turn(nav.TURNS.LEFT)
         if go_home:
-                navigator.go_to([0,0,0])
-                navigator.turn_to(nav.CARDINALS.NORTH)
+                navigator.go_to(initial_location)
+                navigator.turn_to(initial_direction)
 
 # drops all non valuable items and condenses inventory when full
-def manage_inv(valuables):
+def manage_inv(args):
+        valuables = args[0]
         if valuables and inv.is_full():
                 inv.drop_all_except(VALUABLES)
                 inv.restack()
