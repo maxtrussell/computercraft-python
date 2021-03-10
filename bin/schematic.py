@@ -69,7 +69,7 @@ def build_slice(slice, block_defs):
     # reset for the next level
     nav.force_dir(nav.DIRS.UP)
     if len(slice) % 2 == 0:
-        navigator.turn(nav.TURNS.LEFT)
+        navigator.turn(nav.TURNS.RIGHT)
         navigator.force_dir(nav.DIRS.FORWARD, len(slice)-1)
         navigator.turn(nav.TURNS.RIGHT)
     else:
