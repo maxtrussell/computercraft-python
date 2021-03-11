@@ -69,23 +69,23 @@ def manage_inv(valuables, chest):
                 inv.restack()
 
         if chest:
-		inv.restack()
-		if inv.is_full():
-			navigator = chest[2]
-			current_location = navigator.get_location()
-			current_direction = navigator.get_direction()
-			chest_location = chest[0]
-			chest_direction = chest[1]
+                inv.restack()
+                if inv.is_full():
+                        navigator = chest[2]
+                        current_location = navigator.get_location()
+                        current_direction = navigator.get_direction()
+                        chest_location = chest[0]
+                        chest_direction = chest[1]
 
-			# return to chest
-			navigator.go_to(chest_location)
-			navigator.turn_to(chest_direction)
-			# deposit all
-			inv.drop_all_except(fuel.FUEL)
+                        # return to chest
+                        navigator.go_to(chest_location)
+                        navigator.turn_to(chest_direction)
+                        # deposit all
+                        inv.drop_all_except(fuel.FUEL)
 
-			# go back
-			navigator.go_to(current_location)
-			navigator.turn_to(current_direction)
+                        # go back
+                        navigator.go_to(current_location)
+                        navigator.turn_to(current_direction)
 
 
 def do_wrapper(args):
