@@ -69,12 +69,11 @@ def manage_inv(valuables, chest):
                 inv.restack()
 
         if chest and inv.is_full():
+		navigator = chest[2]
                 current_location = navigator.get_location()
                 current_direction = navigator.get_direction()
-
                 chest_location = chest[0]
                 chest_direction = chest[1]
-                navigator = chest[2]
 
                 # return to chest
                 navigator.go_to(chest_coordinates)
