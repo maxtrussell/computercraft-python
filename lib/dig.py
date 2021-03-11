@@ -26,14 +26,17 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
         # pack do
-        valuables = VALUABLES if valuables else None
-        quarry_dos = [manage_inv, valuables, chest]
+        keep = VALUABLES if valuables else None
+	if chest:
+		chest.append(navigator)
+        quarry_dos = [manage_inv, keep, chest]
         do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
 
         # axis one direction changes
         directions = [nav.TURNS.LEFT, nav.TURNS.RIGHT]
         direction_index = 1
-        navigator.force_dir(nav.DIRS.FORWARD)
+
+        navigator.force_dir(nav.DIRS.FORWARD, 1, do)
         for i in range(height):
                 for j in range(width):
                         navigator.force_dir(nav.DIRS.FORWARD, depth - 1, do)
@@ -71,14 +74,13 @@ def manage_inv(valuables, chest):
 
                 chest_location = chest[0]
                 chest_direction = chest[1]
+		navigator = chest[2]
 
                 # return to chest
                 navigator.go_to(chest_coordinates)
                 navigator.turn_to(chest_direction)
                 # deposit all
-                for i in range(16):
-                        turtle.select(i + 1)
-                        turtle.drop()
+		inv.drop_all_except({})
 
                 # go back
                 navigator.go_to(current_location)
