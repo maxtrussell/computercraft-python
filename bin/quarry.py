@@ -1,5 +1,4 @@
 from cc import import_file
-from string import split
 
 dig = import_file('/lib/dig.py')
 nav = import_file('/lib/nav.py')

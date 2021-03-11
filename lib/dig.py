@@ -26,7 +26,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
         # pack do
-	quarry_dos = [manage_inv, VALUABLES, chest]
+        quarry_dos = [manage_inv, VALUABLES, chest]
         do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
 
         # axis one direction changes
@@ -65,30 +65,30 @@ def manage_inv(valuables, chest):
                 inv.drop_all_except(VALUABLES)
                 inv.restack()
 
-	if chest and inv.is_full():
-		current_location = navigator.get_location()
-		current_direction = navigator.get_direction()
+        if chest and inv.is_full():
+                current_location = navigator.get_location()
+                current_direction = navigator.get_direction()
 
-		chest_location = chest[0]
-		chest_direction = chest[1]
+                chest_location = chest[0]
+                chest_direction = chest[1]
 
-		# return to chest
-		navigator.go_to(chest_coordinates)
-		navigator.turn_to(chest_direction)
-		# deposit all
-		for i in range(16):
-			turtle.select(i + 1)
-			turtle.drop()
+                # return to chest
+                navigator.go_to(chest_coordinates)
+                navigator.turn_to(chest_direction)
+                # deposit all
+                for i in range(16):
+                        turtle.select(i + 1)
+                        turtle.drop()
 
-		# go back
-		navigator.go_to(current_location)
-		navigator.turn_to(current_direction)
+                # go back
+                navigator.go_to(current_location)
+                navigator.turn_to(current_direction)
 
 
 def do_wrapper(args):
         manage_inv = args[0][0]
         valuables = args[0][1]
-	chest = args[0][2]
+        chest = args[0][2]
         manage_inv(valuables, chest)
 
         if len(args) > 1:
