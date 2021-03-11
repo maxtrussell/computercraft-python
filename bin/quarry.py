@@ -13,7 +13,7 @@ go_down = bool(args[4]) if len(args) > 4 else False
 go_home = bool(args[5]) if len(args) > 5 else False
 
 if len(args) > 7:
-    chest_location = args[6].split(',')
+    chest_location = [int(x) for x in args[6].split(',')]
     chest_direction = nav.CARDINALS[args[7]]
     chest = [chest_location, chest_direction]
 else:
