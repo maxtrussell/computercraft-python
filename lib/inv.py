@@ -82,9 +82,10 @@ def restack():
 					inv[item[b'name']] = null
 			elif turtle.getItemSpace(i + 1) > 0:
 				# add item to inv if not there and still has space
+				space = turtle.getItemSpace(i+1)
 				print('onemore')
 				sleep(5)
-				inv[item[b'name']] = {'space':turtle.getItemSpace(i + i), 'slot':i + 1}
+				inv[item[b'name']] = {'space':space, 'slot':i + 1}
 	turtle.select(initial_slot)
 
 def inv_dict():
