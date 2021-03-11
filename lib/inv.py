@@ -59,6 +59,8 @@ def restack():
 		sleep(5)
 		item = turtle.getItemDetail(i + 1)
 		if item is not None:
+			print('in item')
+			sleep(5)
 			if item[b'name'] in inv:
 				# stack with space already in inventory
 				turtle.select(i + 1)
@@ -78,8 +80,6 @@ def restack():
 				else:
 					# previous stack full, selected not empty
 					inv[item[b'name']] = null
-			print('elif')
-			sleep(5)
 			elif turtle.getItemSpace(i + 1) > 0:
 				# add item to inv if not there and still has space
 				print('onemore')
