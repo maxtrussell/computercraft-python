@@ -30,7 +30,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         if chest:
                 chest.append(navigator)
         quarry_dos = [manage_inv, keep, chest]
-        do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
+        do = [do_wrapper, [quarry_dos, [do[0], do[1]]]] if do else [do_wrapper, [quarry_dos]]
 
         # axis one direction changes
         directions = [nav.TURNS.LEFT, nav.TURNS.RIGHT]
