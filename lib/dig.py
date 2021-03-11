@@ -79,7 +79,7 @@ def manage_inv(valuables, chest):
                 navigator.go_to(chest_location)
                 navigator.turn_to(chest_direction)
                 # deposit all
-                inv.drop_all_except({})
+                inv.drop_all_except(fuel.FUEL)
 
                 # go back
                 navigator.go_to(current_location)
