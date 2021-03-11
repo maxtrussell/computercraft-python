@@ -79,7 +79,7 @@ def restack():
 					inv[item[b'name']] = {'space':(turtle.getItemSpace(i + 1)), 'slot':i + 1}
 				else:
 					# previous stack full, selected not empty
-					inv[item[b'name']] = null
+					del inv[item[b'name']]
 			elif turtle.getItemSpace(i + 1) > 0:
 				# add item to inv if not there and still has space
 				space = turtle.getItemSpace(i+1)
