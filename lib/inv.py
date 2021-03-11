@@ -1,4 +1,5 @@
 from cc import turtle
+from time import sleep
 # select a block with given name
 def select_by_name(name):
 	# item keys are byte strings
@@ -55,7 +56,7 @@ def restack():
 	inv = {}
 	for i in range(16):
 		print(i+1)
-		input("see")
+		sleep(5)
 		item = turtle.getItemDetail(i + 1)
 		if item is not None:
 			if item[b'name'] in inv:
