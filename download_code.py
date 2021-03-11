@@ -4,12 +4,16 @@ from cc import fs
 
 BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{}'
 FILES = [
+    "/bin/curl.py",
+    "/bin/file_server.py",
     "/bin/quarry.py",
     "/bin/schematic.py",
+    "/docs/cords.txt",
     "/lib/dig.py",
     "/lib/fuel.py",
     "/lib/inv.py",
     "/lib/nav.py",
+    "/lib/net.py",
     "/schematics/house.txt",
     "/schematics/farm.txt",
 ]
@@ -26,7 +30,7 @@ def get_file(filename):
     with fs.open(filename, 'w') as f:
         f.write(resp.text)
 
-for d in ['/lib', '/bin', '/scripts']:
+for d in ['/lib', '/bin', '/docs', '/schematics', '/scripts']:
     if not fs.exists(d):
         fs.makeDir(d)
 
