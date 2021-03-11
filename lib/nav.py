@@ -150,8 +150,10 @@ class Navigator:
 		self.direction = TURN_TO_DIR[self.direction][turn_dir]
 
 	# move in the given direction
-	def dir(self, move_dir, n=1):
+	def dir(self, move_dir, n=1, to_do=None):
 		for i in range(n):
+			if to_do:
+				to_do[0](to_do[1])
 			if not dir(move_dir):
 				return False
 			self.set_location(move_dir)
@@ -181,30 +183,30 @@ class Navigator:
 			self.turn(TURNS.LEFT)
 		self.turn(TURNS.LEFT) if TURN_TO_DIR[self.direction][TURNS.LEFT] == cardinal else self.turn(TURNS.RIGHT)
 
-	def go_to(self, location):
+	def go_to(self, location, do=False):
 		# move z
 		to_go = location[2] - self.location[2]
 		if to_go > 0:
-			self.force_dir(DIRS.UP, to_go)
+			self.force_dir(DIRS.UP, to_go, do)
 		elif to_go < 0:
-			self.force_dir(DIRS.DOWN, to_go * -1)
+			self.force_dir(DIRS.DOWN, to_go * -1, do)
 		# mov x
 		to_go = location[0] - self.location[0]
 		if to_go > 0:
 			self.turn_to(CARDINALS.EAST)
-			self.force_dir(DIRS.FORWARD, to_go)
+			self.force_dir(DIRS.FORWARD, to_go, do)
 		elif to_go < 0:
 			self.turn_to(CARDINALS.WEST)
-			self.force_dir(DIRS.FORWARD, to_go * -1)
+			self.force_dir(DIRS.FORWARD, to_go * -1, do)
 
 		# mov y
 		to_go = location[1] - self.location[1]
 		if to_go > 0:
 			self.turn_to(CARDINALS.NORTH)
-			self.force_dir(DIRS.FORWARD, to_go)
+			self.force_dir(DIRS.FORWARD, to_go, do)
 		elif to_go < 0:
 			self.turn_to(CARDINALS.SOUTH)
-			self.force_dir(DIRS.FORWARD, to_go * -1)
+			self.force_dir(DIRS.FORWARD, to_go * -1, do)
 
 		return True if self.location == location else False
 
