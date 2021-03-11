@@ -27,8 +27,8 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
 
         # pack do
         keep = VALUABLES if valuables else None
-	if chest:
-		chest.append(navigator)
+        if chest:
+                chest.append(navigator)
         quarry_dos = [manage_inv, keep, chest]
         do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
 
@@ -74,13 +74,13 @@ def manage_inv(valuables, chest):
 
                 chest_location = chest[0]
                 chest_direction = chest[1]
-		navigator = chest[2]
+                navigator = chest[2]
 
                 # return to chest
                 navigator.go_to(chest_coordinates)
                 navigator.turn_to(chest_direction)
                 # deposit all
-		inv.drop_all_except({})
+                inv.drop_all_except({})
 
                 # go back
                 navigator.go_to(current_location)
