@@ -19,4 +19,4 @@ if len(args) > 7:
 else:
     chest = None
 
-dig.quarry(width, depth, height, False, go_down, go_home, chest)
+dig.quarry(width, depth, height, valuables, go_down, go_home, chest)
