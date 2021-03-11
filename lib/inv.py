@@ -76,7 +76,7 @@ def restack():
 					# previous stack full, selected not empty
 					print(i + 1)
 					sleep(5)
-					inv[item[b'name']] = {'space':turtle.getItemSpace(i + 1), 'slot':i + 1}
+					inv[item[b'name']] = {'space':(turtle.getItemSpace(i + 1)), 'slot':i + 1}
 				else:
 					# previous stack full, selected not empty
 					inv[item[b'name']] = null
@@ -85,10 +85,10 @@ def restack():
 				space = turtle.getItemSpace(i+1)
 				print('onemore')
 				sleep(5)
-				inv[item[b'name']] = {'space':(turtle.getItemSpace(i+1)) 'slot':i + 1}
+				inv[item[b'name']] = {'space':(turtle.getItemSpace(i+1)), 'slot':i + 1}
 	turtle.select(initial_slot)
 
-def inv_dict():
+def inv_dict()
 	inv = {}
 	for i in range(16):
 		item = getItemDetail(i + 1)
