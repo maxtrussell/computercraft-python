@@ -76,7 +76,7 @@ def manage_inv(valuables, chest):
                 chest_direction = chest[1]
 
                 # return to chest
-                navigator.go_to(chest_coordinates)
+                navigator.go_to(chest_location)
                 navigator.turn_to(chest_direction)
                 # deposit all
                 inv.drop_all_except({})
