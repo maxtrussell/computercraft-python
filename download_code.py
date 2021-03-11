@@ -1,9 +1,11 @@
+import argparse
 import requests
 
 from cc import fs, parallel
 
 BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{}{}'
 FILES = [
+    "/bootstrap.lua",
     "/bin/curl.py",
     "/bin/file_server.py",
     "/bin/quarry.py",
@@ -14,6 +16,9 @@ FILES = [
     "/lib/nav.py",
     "/lib/net.py",
     "/schematics/house.txt",
+]
+EXTRAS = [
+    "/docs/cords.txt",
 ]
 
 def wrapper(func, f, branch):
@@ -31,8 +36,19 @@ for d in ['/lib', '/bin', '/docs', '/schematics', '/scripts']:
     if not fs.exists(d):
         fs.makeDir(d)
 
-branch = args[0] if len(args) >= 1 else 'master'
+parser = argparse.ArgumentParser(prog=__file__)
+parser.add_argument('branch', nargs='?', default='master', help='target branch, defaults to master')
+parser.add_argument('--all', '-a', action='store_true', help='download all files')
+parser.add_argument('--extra', '-e', action='store_true', help='download extra files only')
+args = parser.parse_args(args=args)
+
+target_files = FILES
+if args.all:
+    target_files += EXTRAS
+elif args.extra:
+    target_files = EXTRAS
+
 print(f'Getting files asynchronously:')
-for f in sorted(FILES):
+for f in sorted(target_files):
     print(f)
-parallel.waitForAll(*[wrapper(get_file, f, branch) for f in FILES])
+parallel.waitForAll(*[wrapper(get_file, f, args.branch) for f in target_files])
