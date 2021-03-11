@@ -85,7 +85,7 @@ def restack():
 				space = turtle.getItemSpace(i+1)
 				print('onemore')
 				sleep(5)
-				inv[item[b'name']] = {'space':space, 'slot':i + 1}
+				inv[item[b'name']] = {'space':(turtle.getItemSpace(i+1)) 'slot':i + 1}
 	turtle.select(initial_slot)
 
 def inv_dict():
