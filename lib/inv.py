@@ -1,5 +1,4 @@
 from cc import turtle
-from time import sleep
 # select a block with given name
 def select_by_name(name):
 	# item keys are byte strings
