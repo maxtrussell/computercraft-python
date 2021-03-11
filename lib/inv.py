@@ -63,6 +63,8 @@ def restack():
 				# stack with space already in inventory
 				turtle.select(i + 1)
 				turtle.transferTo(inv[item[b'name']]['slot'])
+				print(inv[item[b'name']]['slot'])
+				sleep(5)
 				prev_space = turtle.getItemSpace(inv[item[b'name']]['slot'])
 				if prev_space > 0:
 					# previous stack still has space remaining
@@ -70,12 +72,18 @@ def restack():
 				
 				elif turtle.getItemCount(i + 1) > 0:
 					# previous stack full, selected not empty
+					print(i + 1)
+					sleep(5)
 					inv[item[b'name']] = {'space':turtle.getItemSpace(i + 1), 'slot':i + 1}
 				else:
 					# previous stack full, selected not empty
 					inv[item[b'name']] = null
+			print('elif')
+			sleep(5)
 			elif turtle.getItemSpace(i + 1) > 0:
 				# add item to inv if not there and still has space
+				print('onemore')
+				sleep(5)
 				inv[item[b'name']] = {'space':turtle.getItemSpace(i + i), 'slot':i + 1}
 	turtle.select(initial_slot)
 
