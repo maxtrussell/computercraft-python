@@ -26,7 +26,7 @@ def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, 
         zdir = nav.DIRS.DOWN if go_down else nav.DIRS.UP
 
         # pack do
-	valuables = VALUABLES if valuables else None
+        valuables = VALUABLES if valuables else None
         quarry_dos = [manage_inv, valuables, chest]
         do = [do_wrapper, [quarry_dos, [d[0], d[1]]]] if do else [do_wrapper, [quarry_dos]]
 
