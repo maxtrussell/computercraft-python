@@ -54,6 +54,8 @@ def restack():
 	initial_slot = turtle.getSelectedSlot()
 	inv = {}
 	for i in range(16):
+		print(i+1)
+		input("see")
 		item = turtle.getItemDetail(i + 1)
 		if item is not None:
 			if item[b'name'] in inv:
