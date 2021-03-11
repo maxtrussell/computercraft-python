@@ -172,6 +172,8 @@ class Navigator:
 
 	# turn to cardinal
 	def turn_to(self, cardinal):
+		if isinstance(cardinal, str):
+			cardinal = CARDINALS[cardinal]
 		if self.direction == cardinal:
 			return
 		elif DIRS_TO_AXIS[DIRS.FORWARD][self.direction]['AXIS'] == DIRS_TO_AXIS[DIRS.FORWARD][cardinal]['AXIS']:
