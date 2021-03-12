@@ -17,7 +17,9 @@ function getFile(filename)
 	file.close()
 end
 
-getFile("/download_code.py")
-shell.run("wget http://localhost:6969/ py")
+if not fs.exists('/py') then
+   shell.run("wget http://localhost:6969/ py")
+end
 
-shell.run("py /download_code.py " .. branch)
+getFile("/download_code.py")
+shell.run("py /download_code.py " .. table.concat(args, " "))
