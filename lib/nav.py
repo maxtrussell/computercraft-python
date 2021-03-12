@@ -122,7 +122,7 @@ class Navigator:
 	# change direction given a turn direction
 	def set_direction(self, turn_dir):
 		turn_dir = -1 if turn_dir == TURNS.LEFT else 1
-		self.direction = CARDINALS[self.direction + turn_dir % 4]
+		self.direction = CARDINALS((self.direction + turn_dir) % 4)
 
 	# move in the given direction
 	def dir(self, move_dir, n=1, to_do=None):

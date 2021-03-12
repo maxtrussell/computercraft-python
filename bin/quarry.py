@@ -1,11 +1,10 @@
 from cc import import_file
 
 dig = import_file('/lib/dig.py')
-nav = import_file('/lib/nav.py')
 
 # Wrapper for dig
 if len(args) < 3:
-    print('Usage: quarry <width> <depth> <height> [valuables?] [down?] [go_home?] [chest: xcord,ycord,zcord direction')
+    print('Usage: quarry <width> <depth> <height> [valuables?] [down?] [go_home?] [chest: <xcord>,<ycord>,<zcord> <direction>'])
 
 width, depth, height = [int(x) for x in args[:3]]
 valuables = bool(args[3]) if len(args) > 3 else False
