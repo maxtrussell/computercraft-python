@@ -107,7 +107,7 @@ class Navigator:
 	def get_location(self):
 		return self.location.copy()
 	def get_direction(self):
-		return self.direction.copy()
+		return CARDINALS(self.direction)
 
 	# change location depending on given direction
 	def set_location(self, dir):
