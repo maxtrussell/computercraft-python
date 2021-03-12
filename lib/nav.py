@@ -82,10 +82,10 @@ class Navigator:
 	# change location depending on given direction
 	def set_location(self, dir):
 		if dir == DIRS.UP:
-			axis = 3
+			axis = 2
 			direction = 1
 		elif dir == DIRS.DOWN:
-			axis = 3
+			axis = 2
 			direction = -1
 		else:
 			axis = 0 if self.get_direction() % 2 else 1
