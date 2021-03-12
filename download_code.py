@@ -7,6 +7,7 @@ BASE_URL = 'https://raw.githubusercontent.com/maxtrussell/computercraft-python/{
 FILES = [
     "/bootstrap.lua",
     "/bin/curl.py",
+    "/bin/farm.py",
     "/bin/file_server.py",
     "/bin/quarry.py",
     "/bin/schematic.py",
@@ -15,10 +16,11 @@ FILES = [
     "/lib/inv.py",
     "/lib/nav.py",
     "/lib/net.py",
-    "/schematics/house.txt",
 ]
 EXTRAS = [
     "/docs/cords.txt",
+    "/schematics/house.txt",
+    "/schematics/greenhouse.txt",
 ]
 
 def wrapper(func, f, branch):
