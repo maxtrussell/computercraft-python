@@ -4,7 +4,7 @@ dig = import_file('/lib/dig.py')
 
 # Wrapper for dig
 if len(args) < 3:
-    print('Usage: quarry <width> <depth> <height> [valuables?] [down?] [go_home?] [chest: <xcord>,<ycord>,<zcord> <direction>'])
+    print('Usage: quarry <width> <depth> <height> [valuables?] [down?] [go_home?] [chest: <xcord>,<ycord>,<zcord> <direction>]')
 
 width, depth, height = [int(x) for x in args[:3]]
 valuables = bool(args[3]) if len(args) > 3 else False

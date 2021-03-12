@@ -53,3 +53,4 @@ test('Expected State: [5,6,0], EAST')
 input()
 
 print(turtle.go_to([0,0,0]))
+turtle.turn_to(nav.CARDINALS.NORTH)
