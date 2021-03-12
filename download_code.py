@@ -16,6 +16,7 @@ FILES = [
     "/lib/net.py",
     "/schematics/house.txt",
     "/schematics/farm.txt",
+    "/tests/navigate.py",
 ]
 
 branch = 'master'
