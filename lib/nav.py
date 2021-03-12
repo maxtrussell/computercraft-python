@@ -27,36 +27,6 @@ class CARDINALS(IntEnum):
 	SOUTH=2
 	WEST=3
 
-# maps a direction to an axis
-DIRS_TO_AXIS = {
-	DIRS.UP: {
-		'AXIS':AXIS.Z,
-		'DIRECTION':1,
-	},
-	DIRS.DOWN: {
-		'AXIS':AXIS.Z,
-		'DIRECTION':-1,
-	},
-	DIRS.FORWARD: {
-		CARDINALS.NORTH: {
-			'AXIS':AXIS.Y,
-			'DIRECTION':1,
-		},
-		CARDINALS.EAST: {
-			'AXIS':AXIS.X,
-			'DIRECTION':1,
-		},
-		CARDINALS.SOUTH: {
-			'AXIS':AXIS.Y,
-			'DIRECTION':-1,
-		},
-		CARDINALS.WEST: {
-			'AXIS':AXIS.X,
-			'DIRECTION':-1,
-		},
-	},
-}
-
 ACTIONS = {
 	OPS.MOVE: {
 		DIRS.UP:turtle.up,
@@ -111,12 +81,15 @@ class Navigator:
 
 	# change location depending on given direction
 	def set_location(self, dir):
-		if dir != DIRS.FORWARD:
-			axis = DIRS_TO_AXIS[dir]['AXIS']
-			direction = DIRS_TO_AXIS[dir]['DIRECTION']
+		if dir == DIRS.UP:
+			axis = 3
+			direction = 1
+		elif dir == DIRS.DOWN:
+			axis = 3
+			direction = -1
 		else:
-			axis = DIRS_TO_AXIS[dir][self.direction]['AXIS']
-			direction = DIRS_TO_AXIS[dir][self.direction]['DIRECTION']
+			axis = 0 if navigator.get_direction() % 2 else 1
+			direction = - 1 if navigator.get_direction() > 1 else 1
 		self.location[axis]+=direction
 
 	# change direction given a turn direction
