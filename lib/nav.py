@@ -21,11 +21,11 @@ class AXIS(IntEnum):
 	Y=1
 	Z=2
 
-class CARDINALS(Enum):
-	NORTH='NORTH'
-	EAST='EAST'
-	SOUTH='SOUTH'
-	WEST='WEST'
+class CARDINALS(IntEnum):
+	NORTH=0
+	EAST=1
+	SOUTH=2
+	WEST=3
 
 # maps a direction to an axis
 DIRS_TO_AXIS = {
@@ -57,25 +57,6 @@ DIRS_TO_AXIS = {
 	},
 }
 
-# maps cardinal direction and a turn to a resulting cardinal direction
-TURN_TO_DIR = {
-	CARDINALS.NORTH: {
-		TURNS.LEFT:CARDINALS.WEST,
-		TURNS.RIGHT:CARDINALS.EAST,
-	},
-	CARDINALS.EAST: {
-		TURNS.LEFT:CARDINALS.NORTH,
-		TURNS.RIGHT:CARDINALS.SOUTH,
-	},
-	CARDINALS.SOUTH: {
-		TURNS.LEFT:CARDINALS.EAST,
-		TURNS.RIGHT:CARDINALS.WEST,
-	},
-	CARDINALS.WEST: {
-		TURNS.LEFT:CARDINALS.SOUTH,
-		TURNS.RIGHT:CARDINALS.NORTH,
-	},
-}
 ACTIONS = {
 	OPS.MOVE: {
 		DIRS.UP:turtle.up,
@@ -126,15 +107,8 @@ class Navigator:
 	def get_location(self):
 		return self.location.copy()
 	def get_direction(self):
-		direction = self.direction
-		if direction == CARDINALS.NORTH:
-			return CARDINALS.NORTH
-		elif direction == CARDINALS.EAST:
-			return CARDINALS.EAST
-		elif direction == CARDINALS.WEST:
-			return CARDINALS.WEST
-		else:
-			return CARDINALS.SOUTH
+		return self.direction.copy()
+
 	# change location depending on given direction
 	def set_location(self, dir):
 		if dir != DIRS.FORWARD:
@@ -147,7 +121,8 @@ class Navigator:
 
 	# change direction given a turn direction
 	def set_direction(self, turn_dir):
-		self.direction = TURN_TO_DIR[self.direction][turn_dir]
+		turn_dir = -1 if turn_dir == TURNS.LEFT else 1
+		self.direction = CARDINALS[self.direction + turn_dir % 4]
 
 	# move in the given direction
 	def dir(self, move_dir, n=1, to_do=None):
@@ -173,15 +148,17 @@ class Navigator:
 		self.set_direction(turn_dir)
 
 	# turn to cardinal
-	def turn_to(self, cardinal):
-		if isinstance(cardinal, str):
-			cardinal = CARDINALS[cardinal]
-		if self.direction == cardinal:
-			return
-		elif DIRS_TO_AXIS[DIRS.FORWARD][self.direction]['AXIS'] == DIRS_TO_AXIS[DIRS.FORWARD][cardinal]['AXIS']:
-			# change axis to be diffrent then desired axis
-			self.turn(TURNS.LEFT)
-		self.turn(TURNS.LEFT) if TURN_TO_DIR[self.direction][TURNS.LEFT] == cardinal else self.turn(TURNS.RIGHT)
+	def turn_to(self, target):
+		difference = target - self.direction
+		direction = 1 if difference > 0 else -1
+		turns = {-1:TURNS.LEFT, 1:TURNS.RIGHT}
+
+		if abs(difference) > 2:
+			self.turn(turns[-1 * direction])
+		else:
+			while difference:
+				self.turn(turns[direction])
+				difference -= direction
 
 	def go_to(self, location, do=False):
 		# move z
@@ -208,5 +185,5 @@ class Navigator:
 			self.turn_to(CARDINALS.SOUTH)
 			self.force_dir(DIRS.FORWARD, to_go * -1, do)
 
-		return True if self.location == location else False
+		return self.location == location
 

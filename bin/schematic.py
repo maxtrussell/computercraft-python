@@ -39,7 +39,6 @@ def parse_schematic(path, open_func):
 
 def build_slice(slice, block_defs):
     selected = 0
-    turn_dir = nav.TURNS.RIGHT
     navigator = nav.Navigator()
     turn = navigator.turn
     initial_location = navigator.get_location()
@@ -101,5 +100,3 @@ elif in_minecraft:
     # obviously you can only build from within minecraft
     for slice in schematic:
         build_slice(slice, block_defs)
-    navigator.go_to([0,0,0])
-    navigator.turn_to(nav.CARDINALS.NORTH)
