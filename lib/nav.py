@@ -88,8 +88,8 @@ class Navigator:
 			axis = 3
 			direction = -1
 		else:
-			axis = 0 if navigator.get_direction() % 2 else 1
-			direction = - 1 if navigator.get_direction() > 1 else 1
+			axis = 0 if self.get_direction() % 2 else 1
+			direction = - 1 if self.get_direction() > 1 else 1
 		self.location[axis]+=direction
 
 	# change direction given a turn direction
