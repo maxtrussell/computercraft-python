@@ -14,6 +14,7 @@ FILES = [
     "/lib/inv.py",
     "/lib/nav.py",
     "/lib/net.py",
+    "/lib/schematic.py",
     "/schematics/house.txt",
     "/schematics/farm.txt",
     "/tests/navigate.py",
