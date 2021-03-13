@@ -8,6 +8,7 @@ from cc import import_file, os, turtle
 
 inv = import_file('/lib/inv.py')
 nav = import_file('/lib/nav.py')
+net = import_file('/lib/net.py')
 
 class Crop:
     def __init__(self, crop, product, seed, growth_age):
@@ -48,12 +49,18 @@ def farm(crop: Crop):
 
 def manage_inventory(crop):
     inv.drop_all_except({'minecraft:coal', crop.seed}, down=True)
-    inv.select_by_name('minecraft:coal')
-    coal_qty = turtle.getItemCount()
+    coal_qty = inv.count_item('minecraft:coal')
     if coal_qty < 64:
         turtle.turnLeft()
         turtle.suck(64 - coal_qty)
         turtle.turnRight()
+        if inv.count_item('minecraft:coal') < 64:
+            # The fuel chest has run out, alert main server
+            net.request('main-server:FUEL/low', await_response=False)
+        else:
+            # The turtle has sufficient fuel. alert main server
+            net.request('main-server:FUEL/ok', await_response=False)
+
     seed_qty = inv.count_item(crop.seed)
     if seed_qty > 80:
         # 80 is the capacity of the farm

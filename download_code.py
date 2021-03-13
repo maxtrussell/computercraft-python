@@ -8,7 +8,7 @@ FILES = [
     "/bootstrap.lua",
     "/bin/curl.py",
     "/bin/farm.py",
-    "/bin/file_server.py",
+    "/bin/main_server.py",
     "/bin/quarry.py",
     "/bin/schematic.py",
     "/lib/dig.py",
