@@ -1,7 +1,7 @@
 from collections import defaultdict
 import math
 import sys
-from cc import import_file
+from cc import import_file, fs
 
 nav = import_file('/lib/nav.py')
 inv = import_file('/lib/inv.py')
