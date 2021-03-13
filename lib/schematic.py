@@ -71,7 +71,7 @@ def build_slice(slice, block_defs, navigator):
 
 def run_schematic(path_to_schematic, analyze=False, navigator=None):
     navigator = navigator if navigator else nav.Navigator()
-    schematic, block_defs = parse_schematic(path_to_schematic, fs.open if in_minecraft else open)
+    schematic, block_defs = parse_schematic(path_to_schematic, fs.open)
     if analyze:
         char_counts = defaultdict(lambda: 0)
         def count_col(col):
