@@ -2,11 +2,8 @@ from collections import defaultdict
 import math
 import sys
 
-in_minecraft = 'args' in globals()
-if in_minecraft:
-    from cc import fs, import_file, turtle
-    nav = import_file('/lib/nav.py')
-    inv = import_file('/lib/inv.py')
+nav = import_file('/lib/nav.py')
+inv = import_file('/lib/inv.py')
 
 def parse_schematic(path, open_func):
     """ Returns 3D array of schematic """

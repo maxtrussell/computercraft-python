@@ -139,7 +139,6 @@ class Navigator:
 	## PATHERS
 	# move once in any direction
 	def step(self, axis, direction, n=1, do = None, force=False):
-		print(n)
 		move = self.force_dir if force else self.dir
 
 		if axis == 2:

@@ -47,7 +47,7 @@ test('Expected State: [5,6,0], EAST')
 
 turtle.go_to([0,0,1])
 turtle.turn_to(nav.CARDINALS.NORTH)
-schematic.run_schematic('schematics/house.txt', turtle)
+schematic_driver.run_schematic('schematics/house.txt', turtle)
 turtle.go_to([-7,-1,0])
 turtle.turn_to(nav.CARDINALS.NORTH)
 dig.quarry(7,7,4, False, False, False, None, None, turtle)
