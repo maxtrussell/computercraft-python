@@ -5,11 +5,11 @@ fuel = import_file('/lib/fuel.py')
 inv = import_file('/lib/inv.py')
 
 VALUABLES = {
-        'minecraft:iron_ore':True,
-        'minecraft:gold_ore':True,
-        'minecraft:diamond':True,
-        'minecraft:emerald':True,
-        'minecraft:lapis_lazuli':True,
+        'minecraft:iron_ore',
+        'minecraft:gold_ore',
+        'minecraft:diamond',
+        'minecraft:emerald',
+        'minecraft:lapis_lazuli',
 }
 
 # add fuel source to VALUABLES
