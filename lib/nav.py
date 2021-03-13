@@ -139,6 +139,7 @@ class Navigator:
 	## PATHERS
 	# move once in any direction
 	def step(self, axis, direction, n=1, do = None, force=False):
+		print(n)
 		move = self.force_dir if force else self.dir
 
 		if axis == 2:
@@ -160,14 +161,10 @@ class Navigator:
 		while(self.location != target):
 			difference = [a-b for a,b in zip(target, self.location)]
 			direction = [1 if x > 0 else -1 for x in difference]
-			print(difference)
-			print(direction)
 
 			for i in range(3):
 				axis = prefered_axis + i % 3
 				if difference[axis]:
-					print(axis)
-					print(difference[axis])
 					self.step(axis, direction[axis], abs(difference[axis]), do, False)
 
 	def go_to(self, target, do=False):
