@@ -4,7 +4,7 @@
 3. Hibernate
 """
 
-from cc import import_file, os, turtle
+from cc import gps, import_file, os, turtle
 
 inv = import_file('/lib/inv.py')
 nav = import_file('/lib/nav.py')
@@ -48,6 +48,7 @@ def farm(crop: Crop):
     [turtle.turnLeft() for i in range(2)]
 
 def manage_inventory(crop):
+    inv.restack()
     inv.drop_all_except({'minecraft:coal', crop.seed}, down=True)
     coal_qty = inv.count_item('minecraft:coal')
     if coal_qty < 64:
@@ -66,6 +67,11 @@ def manage_inventory(crop):
         # 80 is the capacity of the farm
         inv.drop_some(crop.seed, seed_qty-80, down=True)
 
+def initialize(initial_pos, initial_bearing):
+    navigator = nav.Navigator(list(gps.locate()), nav.get_bearing())
+    navigator.go_to(initial_pos)
+    navigator.turn_to(initial_bearing)
+
 CROPS = [
     Crop('wheat', 'wheat', 'wheat_seeds', 7),
     Crop('carrots', 'carrot', 'carrot', 7),
@@ -73,12 +79,20 @@ CROPS = [
     Crop('beetroots', 'beetroot', 'beetroot_seeds', 3),
 ]
 
-if len(args) == 0:
-    print('Usage: farm <crop>')
+pos = (0,0)
+bearing = 0
+
+if len(args) != 5:
+    print('Usage: farm <crop> <x> <y> <z> <bearing>')
 else:
     # Timer is reset on reboot, so always start with a farming pass
     active_crop = [c for c in CROPS if c.product == f'minecraft:{args[0]}'][0]
     print(f'Farming {active_crop.product}...')
+
+    initial_pos = [int(x) for x in [args[1], args[2], args[3]]]
+    initial_bearing = nav.CARDINALS(int(args[4]))
+    initialize(initial_pos, initial_bearing)
+
     manage_inventory(active_crop)
     farm(active_crop)
     manage_inventory(active_crop)
