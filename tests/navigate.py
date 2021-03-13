@@ -1,6 +1,8 @@
-from cc import import_file
+from cc import import_file, fs
 
 nav = import_file('/lib/nav.py')
+schematic_driver = import_file('/bin/schematic.py')
+dig = import_file('/lib/dig.py')
 
 # test for navigator
 
@@ -18,39 +20,38 @@ test('Initial State:')
 
 turtle.dir(nav.DIRS.FORWARD)
 test('Expected State: [0,1,0], NORTH')
-input()
 
 turtle.dir(nav.DIRS.UP)
 test('Expected State: [0,1,1], NORTH')
-input()
 
 turtle.dir(nav.DIRS.DOWN)
 test('Expected State: [0,1,0], NORTH')
-input()
 
 turtle.turn(nav.TURNS.LEFT)
 test('Expected State: [0,1,0], WEST')
-input()
 
 turtle.turn_to(nav.CARDINALS.SOUTH)
 test('Expected State: [0,1,0], SOUTH')
-input()
 
 turtle.turn_to(nav.CARDINALS.NORTH)
 test('Expected State: [0,1,0], NORTH')
-input()
 
 turtle.dir(nav.DIRS.FORWARD, 5)
 test('Expected State: [0,6,0], NORTH')
-input()
 
 turtle.turn_to(nav.CARDINALS.EAST)
 test('Expected State: [0,6,0], EAST')
-input()
 
 turtle.dir(nav.DIRS.FORWARD, 5)
 test('Expected State: [5,6,0], EAST')
-input()
 
-print(turtle.go_to([0,0,0]))
+turtle.go_to([0,0,1])
+turtle.turn_to(nav.CARDINALS.NORTH)
+schematic, block_defs = schematic_driver.parse_schematic(f'schematics/house.txt', fs.open)
+for slice in schematic:
+    schematic.build_slice(slice, blockdefs)
+turtle.go_to([-7,-1,0])
+turtle.turn_to(nav.CARDINALS.NORTH)
+dig.quarry(7,7,4)
+turtle.go_to([0,0,0])
 turtle.turn_to(nav.CARDINALS.NORTH)

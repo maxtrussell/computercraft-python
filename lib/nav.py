@@ -73,12 +73,13 @@ class Navigator:
 	def __init__(self, location=[0,0,0], direction=CARDINALS.NORTH):
 		self.location=location
 		self.direction=direction
-	# getters
+	### GETTERS
 	def get_location(self):
 		return self.location.copy()
 	def get_direction(self):
 		return CARDINALS(self.direction)
 
+	### SETTERS
 	# change location depending on given direction
 	def set_location(self, dir):
 		if dir == DIRS.UP:
@@ -97,6 +98,7 @@ class Navigator:
 		turn_dir = -1 if turn_dir == TURNS.LEFT else 1
 		self.direction = CARDINALS((self.direction + turn_dir) % 4)
 
+	## MOVERS
 	# move in the given direction
 	def dir(self, move_dir, n=1, to_do=None):
 		for i in range(n):
@@ -115,6 +117,7 @@ class Navigator:
 			force_dir(move_dir)
 			self.set_location(move_dir)
 
+	## TURNERS
 	# turn RIGHT or LEFT
 	def turn(self, turn_dir):
 		turn(turn_dir)
@@ -133,30 +136,35 @@ class Navigator:
 				self.turn(turns[direction])
 				difference -= direction
 
-	def go_to(self, location, do=False):
-		# move z
-		to_go = location[2] - self.location[2]
-		if to_go > 0:
-			self.force_dir(DIRS.UP, to_go, do)
-		elif to_go < 0:
-			self.force_dir(DIRS.DOWN, to_go * -1, do)
-		# mov x
-		to_go = location[0] - self.location[0]
-		if to_go > 0:
-			self.turn_to(CARDINALS.EAST)
-			self.force_dir(DIRS.FORWARD, to_go, do)
-		elif to_go < 0:
-			self.turn_to(CARDINALS.WEST)
-			self.force_dir(DIRS.FORWARD, to_go * -1, do)
+	## PATHERS
+	# move once in any direction
+	def step(self, axis, direction, n=1, do = None, force=False):
+		move = self.force_dir if force else self.dir
 
-		# mov y
-		to_go = location[1] - self.location[1]
-		if to_go > 0:
-			self.turn_to(CARDINALS.NORTH)
-			self.force_dir(DIRS.FORWARD, to_go, do)
-		elif to_go < 0:
-			self.turn_to(CARDINALS.SOUTH)
-			self.force_dir(DIRS.FORWARD, to_go * -1, do)
+		if axis == 3:
+			move_dir = {1:DIRS.UP, -1:DIRS.DOWN}
+			move(move_dir, n, do)
+		else:
+			if axis:
+				target_cardinal = 0 if direction == 1 else 2
+			else:
+				target_cardinal = 1 if direction == 1 else 3
 
-		return self.location == location
+			initial_cardinal = self.get_direction()
+			self.turn_to(target_cardinal)
+			move(DIRS.FORWARD, n, do)
+			self.turn_to(initial_cardinal)
+
+	def pathing_brute(self, target, do=None, prefered_axis=0):
+
+		while(self.location != target):
+			difference = [a-b for a,b in zip(target, self.location)]
+			direction = [1 if x > 0 else -1 for x in difference]
+
+			for i in range(3):
+				axis = prefered_axis + i % 3
+				self.step(axis, direction[axis], abs(difference[axis]), do, False)
+
+	def go_to(self, target, do=False):
+		self.pathing_brute(target, do)
 
