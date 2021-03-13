@@ -141,7 +141,7 @@ class Navigator:
 	def step(self, axis, direction, n=1, do = None, force=False):
 		move = self.force_dir if force else self.dir
 
-		if axis == 3:
+		if axis == 2:
 			move_dir = {1:DIRS.UP, -1:DIRS.DOWN}
 			move(move_dir, n, do)
 		else:
