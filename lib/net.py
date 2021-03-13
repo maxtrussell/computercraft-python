@@ -45,25 +45,29 @@ def send(msg, id, protocol):
         msg = msg.encode('utf-8')
     rednet.send(id, msg, protocol)
 
-def get(msg, host, protocol):
-    """ Very roughly an HTTP GET """
+def request(url, await_response=True):
+    """ Very roughly an HTTP request """
+    host, protocol, msg = parse_url(url)
     connect()
     send_to_host(msg, host, protocol)
-    resp = rednet.receive(protocol, 5)
-    if resp:
-        return resp[1].decode('utf-8')  # returns response message
+    if await_response:
+        resp = rednet.receive(protocol, 5)
+        if resp:
+            return resp[1].decode('utf-8')  # returns response message
 
 def broadcast(msg, protocol):
     connect()
     rednet.broadcast(msg, protocol)
     
-def listen(protocol, id=None):
+def listen(protocol=None, id=None):
     connect()
     while True:
-        sender_id, msg, _ = rednet.receive(protocol)
-        msg = msg.decode('utf-8')
-        if id is None or sender_id == id:
-            return sender_id, msg
+        sender_id, msg, proto = rednet.receive(protocol)
+        if isinstance(msg, bytes):
+            msg = msg.decode('utf-8')
+
+        if proto != 'dns' and (id is None or sender_id == id):
+            return sender_id, msg, proto
 
 def parse_url(url):
     # TODO: this is way too lazy atm
@@ -76,13 +80,12 @@ def parse_url(url):
 def listen_and_serve(hostname, protocol, router):
     # BYOF -- bring your own functions
     connect()
-    rednet.host(protocol, hostname)
 
     while True:
-        client_id, msg = listen(protocol)
+        client_id, msg, proto = listen(protocol)
         print(f'Request from {client_id}: {msg}')
-        func = router(msg)
+        func = router(msg, proto)
         if func is not None:
-            func(client_id, msg, protocol)
+            func(client_id, msg, proto)
         else:
-            send(f'404: {msg} not found', client_id, protocol)
+            send(f'404: {msg} not found', client_id, proto)
