@@ -164,6 +164,7 @@ class Navigator:
 			for i in range(3):
 				axis = prefered_axis + i % 3
 				if difference[axis]:
+					print(difference[axis])
 					self.step(axis, direction[axis], abs(difference[axis]), do, False)
 
 	def go_to(self, target, do=False):
