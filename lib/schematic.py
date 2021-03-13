@@ -71,7 +71,8 @@ def build_slice(slice, block_defs, navigator):
     navigator.turn_to(initial_direction)
     navigator.force_dir(nav.DIRS.UP)
 
-def run_schematic(path_to_schematic, navigator, navigator):
+def run_schematic(path_to_schematic, analyze=False, navigator=None):
+    navigator = navigator if navigator else nav.Navigator()
     schematic, block_defs = parse_schematic(f'schematics/{args[0]}', fs.open if in_minecraft else open)
     if analyze:
         char_counts = defaultdict(lambda: 0)
