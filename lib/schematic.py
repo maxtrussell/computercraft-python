@@ -90,7 +90,7 @@ def run_schematic(path_to_schematic, analyze=False):
         print('Block counts:')
         for k,v in sorted(dict(char_counts).items()):
             print(f'- {block_defs[k]}: {v} ({v // 64} stacks + {v % 64})')
-    elif in minecraft:
+    elif in_minecraft:
         for slice in schematic:
             build_slice(slice, block_defs)
 	
