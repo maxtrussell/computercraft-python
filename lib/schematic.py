@@ -37,9 +37,8 @@ def parse_schematic(path, open_func):
                 curr_slice.append(list(line.strip()))
     return schematic, block_defs
 
-def build_slice(slice, block_defs):
+def build_slice(slice, block_defs, navigator):
     selected = 0
-    navigator = nav.Navigator()
     turn = navigator.turn
     initial_location = navigator.get_location()
     initial_direction = navigator.get_direction()
@@ -72,7 +71,7 @@ def build_slice(slice, block_defs):
     navigator.turn_to(initial_direction)
     navigator.force_dir(nav.DIRS.UP)
 
-def run_schematic(path_to_schematic, analyze=False):
+def run_schematic(path_to_schematic, navigator, navigator):
     schematic, block_defs = parse_schematic(f'schematics/{args[0]}', fs.open if in_minecraft else open)
     if analyze:
         char_counts = defaultdict(lambda: 0)
@@ -92,5 +91,5 @@ def run_schematic(path_to_schematic, analyze=False):
             print(f'- {block_defs[k]}: {v} ({v // 64} stacks + {v % 64})')
     elif in_minecraft:
         for slice in schematic:
-            build_slice(slice, block_defs)
+            build_slice(slice, block_defs, navigator)
 	

@@ -18,8 +18,8 @@ for k,v in fuel.FUEL.items():
 
 # start bottom front left
 # do is list of a function and its arguments to execute after every movement
-def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, chest=None, do=None):
-        navigator = nav.Navigator()
+def quarry(width, depth, height, valuables=False, go_down=False, go_home=False, chest=None, do=None, navigator=None):
+        navigator = navigator if navigator else nav.navigator()
         initial_location = navigator.get_location()
         initial_direction = navigator.get_direction()
         # get direction z
