@@ -21,6 +21,7 @@ EXTRAS = [
     "/docs/cords.txt",
     "/schematics/house.txt",
     "/schematics/greenhouse.txt",
+    "/tests/navigate.py",
 ]
 
 def wrapper(func, f, branch):
