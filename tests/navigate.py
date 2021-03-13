@@ -1,7 +1,7 @@
 from cc import import_file, fs
 
 nav = import_file('/lib/nav.py')
-schematic_driver = import_file('/bin/schematic.py')
+schematic_driver = import_file('/lib/schematic.py')
 dig = import_file('/lib/dig.py')
 
 # test for navigator
@@ -47,9 +47,7 @@ test('Expected State: [5,6,0], EAST')
 
 turtle.go_to([0,0,1])
 turtle.turn_to(nav.CARDINALS.NORTH)
-schematic, block_defs = schematic_driver.parse_schematic(f'schematics/house.txt', fs.open)
-for slice in schematic:
-    schematic.build_slice(slice, blockdefs)
+schematic.run_schematic('schematics/house.txt')
 turtle.go_to([-7,-1,0])
 turtle.turn_to(nav.CARDINALS.NORTH)
 dig.quarry(7,7,4)
