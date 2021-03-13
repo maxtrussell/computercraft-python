@@ -163,7 +163,8 @@ class Navigator:
 
 			for i in range(3):
 				axis = prefered_axis + i % 3
-				self.step(axis, direction[axis], abs(difference[axis]), do, False)
+				if difference[axis]:
+					self.step(axis, direction[axis], abs(difference[axis]), do, False)
 
 	def go_to(self, target, do=False):
 		self.pathing_brute(target, do)
