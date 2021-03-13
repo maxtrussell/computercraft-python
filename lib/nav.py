@@ -143,7 +143,7 @@ class Navigator:
 
 		if axis == 2:
 			move_dir = {1:DIRS.UP, -1:DIRS.DOWN}
-			move(move_dir, n, do)
+			move(move_dir[direction], n, do)
 		else:
 			if axis:
 				target_cardinal = 0 if direction == 1 else 2
