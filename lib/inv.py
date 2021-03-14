@@ -101,27 +101,26 @@ def drop_all(down=False):
 def restack():
     initial_slot = turtle.getSelectedSlot()
     inv = {}
-    for i in range(16):
-        item = turtle.getItemDetail(i + 1)
+    for i in range(1, 17):
+        item = turtle.getItemDetail(i)
         if item is not None:
             if item[b'name'] in inv:
                 # stack with space already in inventory
-                turtle.select(i + 1)
+                turtle.select(i)
                 turtle.transferTo(inv[item[b'name']]['slot'])
                 prev_space = turtle.getItemSpace(inv[item[b'name']]['slot'])
                 if prev_space > 0:
                     # previous stack still has space remaining
                     inv[item[b'name']]['space'] = prev_space
-                
-                elif turtle.getItemCount(i + 1) > 0:
+                elif turtle.getItemCount(i) > 0:
                     # previous stack full, selected not empty
-                    inv[item[b'name']] = {'space':turtle.getItemSpace(i + 1), 'slot':i + 1}
+                    inv[item[b'name']] = {'space': turtle.getItemSpace(i), 'slot': i}
                 else:
                     # previous stack full, selected not empty
-                    inv[item[b'name']] = null
-            elif turtle.getItemSpace(i + 1) > 0:
+                    del inv[item[b'name']]
+            elif turtle.getItemSpace(i) > 0:
                 # add item to inv if not there and still has space
-                inv[item[b'name']] = {'space':turtle.getItemSpace(i + i), 'slot':i + 1}
+                inv[item[b'name']] = {'space': turtle.getItemSpace(i), 'slot': i}
     turtle.select(initial_slot)
 
 def inv_dict():
