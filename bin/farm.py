@@ -79,9 +79,6 @@ CROPS = [
     Crop('beetroots', 'beetroot', 'beetroot_seeds', 3),
 ]
 
-pos = (0,0)
-bearing = 0
-
 if len(args) != 5:
     print('Usage: farm <crop> <x> <y> <z> <bearing>')
 else:

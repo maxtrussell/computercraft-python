@@ -159,35 +159,30 @@ class Navigator:
         for _ in range(min(right_turns, left_turns)):
             self.turn(turn_dir)
 
-    ## PATHERS
-    # move once in any direction
-    def step(self, axis, direction, n=1, callback=None, force=False):
-        move = self.force_dir if force else self.dir
+    def go_to(self, target, callback=None, order=None):
+        if order is None or sorted(order) != ['x', 'y', 'z']:
+            # if order is unset or invalid, then override it
+            order = ['x', 'y', 'z']
+        delta_pos = [t-s for t,s in zip(target, self.location)]
+        axis_deltas = {axis: delta for axis, delta in zip(['x', 'y', 'z'], delta_pos)}
 
-        if axis == 2:
-            move_dir = {1:DIRS.UP, -1:DIRS.DOWN}
-            move(move_dir[direction], n, callback)
-        else:
-            if axis:
-                target_cardinal = 0 if direction == 1 else 2
+        for axis in order:
+            delta = axis_deltas[axis]
+            if delta == 0:
+                continue
+            
+            # 1. Face correction direction
+            target_bearing = None
+            if axis in {'x', 'z'}:
+                if axis == 'x':
+                    target_bearing = CARDINALS.EAST if delta > 0 else CARDINALS.WEST
+                else:
+                    target_bearing = CARDINALS.SOUTH if delta > 0 else CARDINALS.NORTH
+                self.turn_to(target_bearing)
+
+            # 2. Move
+            if target_bearing is not None:
+                self.dir(DIRS.FORWARD, n=abs(delta), callback=callback)
             else:
-                target_cardinal = 1 if direction == 1 else 3
-
-            initial_cardinal = self.direction
-            self.turn_to(target_cardinal)
-            move(DIRS.FORWARD, n, callback)
-            self.turn_to(initial_cardinal)
-
-    def pathing_brute(self, target, callback=None, preferred_axis=0):
-
-        while(self.location != target):
-            difference = [a-b for a,b in zip(target, self.location)]
-            direction = [1 if x > 0 else -1 for x in difference]
-
-            for i in range(3):
-                axis = preferred_axis + i % 3
-                if difference[axis]:
-                    self.step(axis, direction[axis], abs(difference[axis]), callback, False)
-
-    def go_to(self, target, callback=False):
-        self.pathing_brute(target, callback)
+                direction = DIRS.UP if delta > 0 else DIRS.DOWN
+                self.dir(direction, n=abs(delta), callback=callback)
