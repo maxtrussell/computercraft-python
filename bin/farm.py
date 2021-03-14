@@ -48,15 +48,15 @@ def farm(crop: Crop):
     [turtle.turnLeft() for i in range(2)]
 
 def manage_inventory(crop):
-    inv.restack()
-    inv.drop_all_except({'minecraft:coal', crop.seed}, down=True)
-    coal_qty = inv.count_item('minecraft:coal')
+    accepted_fuel = {'minecraft:coal', 'minecraft:charcoal'}
+    inv.drop_all_except(accepted_fuel | {crop.seed}, turtle.dropDown)
+    coal_qty = inv.count_items(accepted_fuel)
     if coal_qty < 64:
         turtle.turnLeft()
         turtle.suck(64 - coal_qty)
         turtle.turnRight()
         try:
-            if inv.count_item('minecraft:coal') < 64:
+            if inv.count_items(accepted_fuel) < 64:
                 # The fuel chest has run out, alert main server
                 net.request('main-server:FUEL/low', await_response=False)
             else:
@@ -65,10 +65,11 @@ def manage_inventory(crop):
         except Exception as e:
             print(f'ERROR: {str(e)}')
 
-    seed_qty = inv.count_item(crop.seed)
+    seed_qty = inv.count_items({crop.seed})
     if seed_qty > 80:
         # 80 is the capacity of the farm
-        inv.drop_some(crop.seed, seed_qty-80, down=True)
+        inv.drop_some({crop.seed}, seed_qty-80, turtle.dropDown)
+    inv.restack()
 
 def initialize(initial_pos, initial_bearing):
     navigator = nav.Navigator([int(x) for x in gps.locate()], nav.get_bearing())
