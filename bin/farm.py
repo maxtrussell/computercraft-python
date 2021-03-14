@@ -68,7 +68,7 @@ def manage_inventory(crop):
         inv.drop_some(crop.seed, seed_qty-80, down=True)
 
 def initialize(initial_pos, initial_bearing):
-    navigator = nav.Navigator(list(gps.locate()), nav.get_bearing())
+    navigator = nav.Navigator([int(x) for x in gps.locate()], nav.get_bearing())
     navigator.go_to(initial_pos)
     navigator.turn_to(initial_bearing)
 
@@ -86,7 +86,7 @@ else:
     active_crop = [c for c in CROPS if c.product == f'minecraft:{args[0]}'][0]
     print(f'Farming {active_crop.product}...')
 
-    initial_pos = [int(x) for x in [args[1], args[2], args[3]]]
+    initial_pos = [int(x) for x in args[1:4]]
     initial_bearing = nav.CARDINALS(int(args[4]))
     initialize(initial_pos, initial_bearing)
 
