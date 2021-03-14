@@ -13,8 +13,7 @@ VALUABLES = {
 }
 
 # add fuel source to VALUABLES
-for k,v in fuel.FUEL.items():
-        VALUABLES[k] = v
+VALUABLES |= set(fuel.FUEL.keys())
 
 # start bottom front left
 def quarry(width, depth, height, valuables=False, go_down=False):

@@ -55,12 +55,15 @@ def manage_inventory(crop):
         turtle.turnLeft()
         turtle.suck(64 - coal_qty)
         turtle.turnRight()
-        if inv.count_item('minecraft:coal') < 64:
-            # The fuel chest has run out, alert main server
-            net.request('main-server:FUEL/low', await_response=False)
-        else:
-            # The turtle has sufficient fuel. alert main server
-            net.request('main-server:FUEL/ok', await_response=False)
+        try:
+            if inv.count_item('minecraft:coal') < 64:
+                # The fuel chest has run out, alert main server
+                net.request('main-server:FUEL/low', await_response=False)
+            else:
+                # The turtle has sufficient fuel. alert main server
+                net.request('main-server:FUEL/ok', await_response=False)
+        except Exception as e:
+            print(f'ERROR: {str(e)}')
 
     seed_qty = inv.count_item(crop.seed)
     if seed_qty > 80:
