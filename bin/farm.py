@@ -72,7 +72,8 @@ def manage_inventory(crop):
     inv.restack()
 
 def initialize(initial_pos, initial_bearing):
-    navigator = nav.Navigator([int(x) for x in gps.locate()], nav.get_bearing())
+    # TODO: this is a good canditat
+    navigator = nav.Navigator(net.locate(), nav.get_bearing())
     navigator.go_to(initial_pos)
     navigator.turn_to(initial_bearing)
 
