@@ -156,6 +156,6 @@ class Navigator:
 				if difference[axis]:
 					self.step(axis, direction[axis], abs(difference[axis]), callback, False)
 
-	def go_to(self, target, callback=False):
+	def go_to(self, target, callback=None):
 		self.pathing_brute(target, callback)
 
