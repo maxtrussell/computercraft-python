@@ -11,6 +11,7 @@ FILES = [
     "/bin/main_server.py",
     "/bin/quarry.py",
     "/bin/schematic.py",
+    "/bin/smelt.py",
     "/lib/dig.py",
     "/lib/fuel.py",
     "/lib/inv.py",

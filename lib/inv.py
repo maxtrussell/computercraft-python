@@ -7,12 +7,13 @@ def select_by_name(name):
     curr_selected = turtle.getItemDetail()
     if curr_selected and curr_selected[b'name'] == name:
         # item already selected, short circuit
-        return
+        # avoiding selects saves time
+        return True
         
-    for i in range(16):
-        item = turtle.getItemDetail(i + 1)
+    for i in range(1,17):
+        item = turtle.getItemDetail(i)
         if item is not None and item[b'name'] == name:
-            turtle.select(i + 1)
+            turtle.select(i)
             return True
     return False
 
@@ -50,51 +51,41 @@ def drop_all_except(keep, down=False):
                 turtle.drop()
     turtle.select(initial_slot)
 
-def count_item(name):
-    byte_name = name.encode('utf-8')
+def count_items(items):
+    items = {x.encode('utf-8') for x in items}
     inventory = [turtle.getItemDetail(i) for i in range(1,17)]
-    target_item = lambda x: x is not None and x[b'name'] == byte_name
+    target_item = lambda x: x is not None and x[b'name'] in items
     return sum([i[b'count'] for i in inventory if target_item(i)])
 
 # deposit all of a certain block into a chest
 # turtle must be facing the chest
-def drop_item(name, down=False):
+def drop_item(name, drop_func=turtle.drop):
     initial_slot = turtle.getSelectedSlot()
     while select_by_name(name):
-        if down:
-            turtle.dropDown()
-        else:
-            turtle.drop()
+        drop_func()
     turtle.select(initial_slot)
 
-def drop_some(name, qty, down=False):
-    name = name.encode('utf-8')
+def drop_some(names, qty, drop_func=turtle.drop):
+    names = {x.encode('utf-8') for x in names}
     initial_slot = turtle.getSelectedSlot()
     dropped = 0
     for i in range(1,17):
         if dropped >= qty:
             break
         item = turtle.getItemDetail(i)
-        if item is not None and item[b'name'] == name:
+        if item is not None and item[b'name'] in names:
             to_drop = min(qty - dropped, item[b'count'])
             turtle.select(i)
-            if down:
-                turtle.dropDown(to_drop)
-            else:
-                turtle.drop(to_drop)
+            drop_func(to_drop)
             dropped += to_drop
     turtle.select(initial_slot)
     
-
-def drop_all(down=False):
+def drop_all(drop_func=turtle.drop):
     initial_slot = turtle.getSelectedSlot()
     for i in range(1,17):
         if turtle.getItemCount(i) != 0:
             turtle.select(i)
-            if down:
-                turtle.dropDown()
-            else:
-                turtle.drop()
+            drop_func()
     turtle.select(initial_slot)
 
 # condense turtle inventory
@@ -124,8 +115,4 @@ def restack():
     turtle.select(initial_slot)
 
 def inv_dict():
-    inv = {}
-    for i in range(16):
-        item = getItemDetail(i + 1)
-        inv[i + 1] = item
-    return inv
+    return {i: turtle.getItemDetail(i) for i in range(1, 17)}

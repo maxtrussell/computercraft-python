@@ -1,12 +1,15 @@
-from cc import peripheral, rednet
+from cc import os, peripheral, rednet
 
 SIDES = ['left', 'right', 'top', 'bottom', 'front', 'back']
 modem = None
 
-class InvalidUrlException(Exception):
+class GpsLocateException(Exception):
     pass
 
 class HostNotFoundException(Exception):
+    pass
+
+class InvalidUrlException(Exception):
     pass
 
 class RednetConnectionException(Exception):
@@ -58,7 +61,7 @@ def request(url, await_response=True):
 def broadcast(msg, protocol):
     connect()
     rednet.broadcast(msg, protocol)
-    
+
 def listen(protocol=None, id=None):
     connect()
     while True:
@@ -76,6 +79,14 @@ def parse_url(url):
     host, tail = url.split(':', 1)
     proto, route = tail.split('/', 1)
     return host, proto, '/' + route
+
+def locate():
+    for i in range(6):
+        pos = gps.locate()
+        if pos is not None:
+            return list(pos)
+        os.sleep(10)
+    raise GpsLocateException('Could not get GPS location')
 
 def listen_and_serve(hostname, protocol, router):
     # BYOF -- bring your own functions

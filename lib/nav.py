@@ -53,29 +53,32 @@ ACTIONS = {
 }
 
 # destructively move n blocks
-def force_dir(dir, n=1):
+def force_dir(dir, n=1, callback=None):
     for i in range(n):
-        ACTIONS[OPS.DIG][dir]()
-
         while True:
             # keep trying until success
             # used to deal w/falling gravel etc.
             fuel.fuel()
             if ACTIONS[OPS.MOVE][dir]():
+                if callback is not None:
+                    callback()
                 break
             ACTIONS[OPS.DIG][dir]()
 
 # move n blocks
-def dir(dir, n=1):
+def dir(dir, n=1, callback=None):
     for i in range(n):
         fuel.fuel()
         if not ACTIONS[OPS.MOVE][dir]():
             return False
+        if callback is not None:
+            callback()
     return True
 
 # turn a by a given direction
-def turn(turn_dir):
-    ACTIONS[OPS.TURN][turn_dir]()
+def turn(turn_dir, n=1):
+    for i in range(n):
+        ACTIONS[OPS.TURN][turn_dir]()
 
 def get_bearing():
     initial_pos = None
